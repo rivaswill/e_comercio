@@ -1,24 +1,52 @@
 :root{
-    --sW: 50px;
-    --sH: 25px;  
-} 
+    --fnt-color-primary: #292d30;  
+
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  }
 body{
     background-color: #F8F9FA;
-    color: #292d30; 
+    color: var(--fnt-color-primary); 
 }
 
-.contenedor,.cntn,.cnt-img{
+.container,.cntn,.cnt-img{
     justify-content: center;
     align-items: center;
     position: relative;
 }
-.contenedor,.social,.login{
+.container,.social,.login{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.contenedor{
+.container{
     width: 50vw;
     margin: auto;
     padding: 10px 50px;
@@ -27,69 +55,119 @@ body{
 .social,.cntn,.cnt-img{
     display: flex;
 }
-.cntn1{
-    justify-content: space-around;
+.cnt-social{
+    justify-content: center;
+    gap: 10px;
+    
 }
 .checks{
     width: 40vw;
     justify-content: space-between;
 }
-.cntn1,.cntn2{
+.cnt-social,.cnt-or{
     width: 40vw;
 }
-.cntn-links{
-    gap: 10px;
+.cnt-or{
+    position: relative;
 }
-hr{
-    width: calc(100% - 10px);
-    height: .5px;
-    background-color: black;
-}
+.cnt-or::after,.cnt-or::before{
+    position: absolute;
+    content: '';
+    width: 25%;
+    border: 1.5px solid var(--gray);
+    bottom: 1.7rem;
+    }
+    .cnt-or::after{
+        right: 10%;
+        border-radius: 0 5px 5px 0;
+    }
+    .cnt-or::before{
+        left: 10%;
+        border-radius: 5px 0 0 5px;
+    }
+
+
 .login_btn{
     width: 30vw;
+    background-color: var(--pink);
+    border-radius: 10em;
+    text-transform: uppercase;
+    border: 0;
 }
-.btn-circle {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 3rem;
-    display: flex;
-    place-content: center;
+.login_btn:hover {
+    background-color: var(--pink);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18),0 4px 15px 0 rgba(0,0,0,.15);
+    transition: all .2s ease-in-out;
+}
+.btn-social{
+    font-size: 2rem;
+}
+.btn-social:hover > i {
+    color:var(--fnt-color-primary);
+    transition: all .2s ease-in-out;
 }
 .forms-control{
+    outline: none;
     border: none;
     width: 40vw;
     margin: 15px 0px;
-    border-bottom: 2px solid #4f30677d;
+    border-bottom: 2px solid var(--gray);
     padding: 7px 9px;
     overflow: hidden;
     background: transparent;
     font-weight: 600;
     font-size: 14px;
-
+    
+}
+.forms-control:focus{
+    border-bottom: 2px solid var(--gray-dark);
 }
 
 .txt-1{
     font-size: 1.3rem;
+    font-weight: bold;
 }
-i{
-    font-size: 2rem;
+.btn-social,.fa-solid{
+    color: var(--gray);
 }
 .cnt-img{
-    overflow: hidden;
-    max-width: 40vw;
+    width: 90vw;
+    height: 18vw;
+    min-height: 200px;
+    max-width: 730px;
+    background-image: url('../img/login.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-.img{
-    max-width: 50vw;
+
+.psswd{
+    position: relative;
+}
+.show-pass{
+    width: 46px;
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+}
+.fade{
+    display: none;
+}
+.show{
     display: block;
-    margin: auto;
 }
-
-
-
+.alert {
+    position: fixed;
+    top: 80px;
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 
 
 /* @media (min-width: 1000px ){ 
-    .contenedor{
+    .container{
         flex-direction: row;
     }
 } */
