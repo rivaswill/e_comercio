@@ -9,6 +9,9 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/5b1611243e.js" crossorigin="anonymous"></script>
+  <!-- autenticaciones -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="889094166548-9misg0mt41jnra7em2206eu9rp25tvrd.apps.googleusercontent.com">
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/login.css" rel="stylesheet">
   <style>
@@ -45,7 +48,7 @@
                     </li>
   
                     <li class="btn btn-social">
-                        <i class="fa-brands fa-google"></i>
+                        <i class="fa-brands fa-google g-signin2" data-onsuccess="onSignIn"></i>
                     </li>
   
                     <li class="btn btn-social">
