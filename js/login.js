@@ -1,15 +1,15 @@
 //<i class="fa-solid fa-eye-slash"></i>   fa-eye
-const SP_boton = document.querySelector('.show-pass');
-const SP_icono = document.querySelector('.fa-solid');
+const showPsswd_boton = document.querySelector('.show-pass');
+const showPsswd_icono = document.querySelector('.fa-solid');
 
-SP_boton.addEventListener('click', ()=>{
-    if(SP_icono.className.includes('fa-eye-slash')){
-        SP_icono.classList.remove('fa-eye-slash');
-        SP_icono.classList.add('fa-eye');
+showPsswd_boton.addEventListener('click', ()=>{
+    if(showPsswd_icono.className.includes('fa-eye-slash')){
+        showPsswd_icono.classList.remove('fa-eye-slash');
+        showPsswd_icono.classList.add('fa-eye');
         psswd.type = 'password';
     }else{
-        SP_icono.classList.remove('fa-eye');
-        SP_icono.classList.add('fa-eye-slash');
+        showPsswd_icono.classList.remove('fa-eye');
+        showPsswd_icono.classList.add('fa-eye-slash');
         psswd.type = 'text';
     }
 
@@ -42,3 +42,14 @@ btn.addEventListener('click', ()=>{
         window.location.href='./login.html';
     }
 });
+
+// Social Media Login Authentication 
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  }
+
+// console.log(getBasicProfile())
