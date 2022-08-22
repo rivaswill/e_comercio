@@ -1,4 +1,5 @@
-//<i class="fa-solid fa-eye-slash"></i>   fa-eye
+
+/*ostrar contraseña */
 const showPsswd_boton = document.querySelector('.show-pass');
 const showPsswd_icono = document.querySelector('.fa-solid');
 
@@ -15,6 +16,7 @@ showPsswd_boton.addEventListener('click', ()=>{
 
 });
 
+/* pop up y evaluacion de campos */
 function showAlertError() {
     document.getElementById("alert-danger").classList.add("show");
 }
@@ -43,6 +45,7 @@ btn.addEventListener('click', ()=>{
     }
 });
 
+/* 
 // Social Media Login Authentication 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -53,3 +56,48 @@ function onSignIn(googleUser) {
   }
 
 // console.log(getBasicProfile())
+
+//facebook
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{your-app-id}',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{api-version}'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   
+FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+});
+devolucion 
+
+{
+    status: 'connected',
+    authResponse: {
+        accessToken: '...',
+        expiresIn:'...',
+        signedRequest:'...',
+        userID:'...'
+    }
+}
+
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+        */

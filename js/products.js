@@ -1,4 +1,4 @@
-const PRODUCT_101 = 'https://japceibal.github.io/emercado-api/cats_products/101.json';
+const PRODUCT_101 = PRODUCTS_URL + '101.json';
 
 const list_cnt = document.getElementById("list-container");
 
