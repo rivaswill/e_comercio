@@ -35,12 +35,15 @@ const btn = document.getElementById('btn-lgn');
 
 btn.addEventListener('click', ()=>{
 
+    localStorage.setItem('mail', mail.value);
+    
     let psswdCheck = psswd.value == '';
     let mailCheck = mail.value == '';
 
     if(psswdCheck || mailCheck){
         showAlertError();
     }else{
+        
         window.location.href='./login.html';
     }
 });

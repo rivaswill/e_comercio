@@ -1,6 +1,17 @@
-const PRODUCT_101 = PRODUCTS_URL + '101.json';
+const PRODUCTS = PRODUCTS_URL + localStorage.catID + '.json';
 
 const list_cnt = document.getElementById("list-container");
+
+const ORDER_ASC_BY_PRICE = document.querySelectorAll('.btn-light')[0];
+const ORDER_DESC_BY_PRICE = document.querySelectorAll('.btn-light')[1];
+const ORDER_BY_SOLD_COUNT = document.querySelectorAll('.btn-light')[2];
+const RANGE_FILTER_COUNT = document.querySelector('#rangeFilterCount');
+const CLEAR_RANGE_FILTER = document.querySelector('#clearRangeFilter');
+const RANGE_FILTER_COUNT_MIN = document.querySelector('#rangeFilterCountMin');
+const RANGE_FILTER_COUNT_MAX = document.querySelector('#rangeFilterCountMax');
+const SEARCH_TEXT = document.querySelector('#search');
+const SEARCH_BUTTON = document.querySelector('#searchButton');
+let ORDER = null;
 
 async function getData(datos){
     let response = await fetch(datos);
@@ -31,11 +42,86 @@ insertHTML=(array)=>{
     return html;
 }
 
-
-document.addEventListener("DOMContentLoaded", async function(){
-
-    let datos = await getData(PRODUCT_101);
-    datos.products.forEach(dato => {
-        list_cnt.innerHTML += insertHTML(dato)
+const INSERT_HTML=(dat)=>{
+    list_cnt.innerHTML='';
+    dat.forEach(dato => {
+        list_cnt.innerHTML += insertHTML(dato);
     });
+}
+const SORT_CAT=(dat)=>{
+    dat.sort((a,b)=>{
+        if(ORDER==='ASC_PRICE'){
+            return b.cost - a.cost;
+        }else if(ORDER==='DESC_PRICE'){
+            return a.cost - b.cost;
+        }else if(ORDER==='SOLD'){
+            return b.soldCount - a.soldCount;
+        }
+    })
+    INSERT_HTML(dat);
+}
+
+const FILTER_MIN_MAX=(dat,min,max)=>{
+    let m = -Infinity;
+    let M =  Infinity;
+    let result = dat
+    if(max!=''){
+        M = parseInt(max);
+    }
+    if(min!=''){
+        m = parseInt(min);
+    }
+    result = dat.filter(e=>e.cost>=m&&e.cost<=M)
+    INSERT_HTML(result)
+    
+}
+const SEARCHING=(dat)=>{
+    
+    let result = [];
+    let txt = SEARCH_TEXT.value.toLowerCase();
+
+    for(let product of dat){
+        let nom = product.name.toLowerCase();
+        if(nom.indexOf(txt) !== -1){
+            result.push(product)
+        }
+    }
+    INSERT_HTML(result)
+}
+document.addEventListener("DOMContentLoaded", async function(){
+    
+    let datos = await getData(PRODUCTS);
+    SORT_CAT(datos.products);
+    
+    ORDER_ASC_BY_PRICE.addEventListener('click',()=>{
+        ORDER = 'ASC_PRICE';
+        SORT_CAT(datos.products);
+    })
+    ORDER_DESC_BY_PRICE.addEventListener('click',()=>{
+        ORDER = 'DESC_PRICE';
+        SORT_CAT(datos.products);
+    })
+    ORDER_BY_SOLD_COUNT.addEventListener('click',()=>{
+        ORDER = 'SOLD';
+        SORT_CAT(datos.products);
+    })
+    RANGE_FILTER_COUNT.addEventListener('click',()=>{
+        FILTER_MIN_MAX( datos.products,
+                        RANGE_FILTER_COUNT_MIN.value,
+                        RANGE_FILTER_COUNT_MAX.value)
+    })
+    CLEAR_RANGE_FILTER.addEventListener('click',()=>{
+        RANGE_FILTER_COUNT_MIN.value = '';
+        RANGE_FILTER_COUNT_MAX.value = '';
+        FILTER_MIN_MAX(datos.products,'','')
+    })
+    SEARCH_TEXT.addEventListener('keyup', () =>{
+        SEARCHING(datos.products)
+    })
+    SEARCH_BUTTON.addEventListener('click', () =>{
+        SEARCHING(datos.products)
+    })
+    
+
 });
+

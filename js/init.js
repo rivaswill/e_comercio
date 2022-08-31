@@ -39,3 +39,16 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+
+//localStorage
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  //user
+  let username = document.querySelector('.nav-item:last-child');
+  if(username != null) {
+    username.innerHTML = `<a class="nav-link" href="">${localStorage.mail}</a>`
+  } 
+  
+});
+
