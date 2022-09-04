@@ -2,9 +2,9 @@ const PRODUCTS = PRODUCTS_URL + localStorage.catID + '.json';
 
 const list_cnt = document.getElementById("list-container");
 
-const ORDER_ASC_BY_PRICE = document.querySelectorAll('.btn-light')[0];
-const ORDER_DESC_BY_PRICE = document.querySelectorAll('.btn-light')[1];
-const ORDER_BY_SOLD_COUNT = document.querySelectorAll('.btn-light')[2];
+const ORDER_ASC_BY_PRICE = document.querySelectorAll('[for*="sort"]')[0];
+const ORDER_DESC_BY_PRICE = document.querySelectorAll('[for*="sort"]')[1];
+const ORDER_BY_SOLD_COUNT = document.querySelectorAll('[for*="sort"]')[2];
 const RANGE_FILTER_COUNT = document.querySelector('#rangeFilterCount');
 const CLEAR_RANGE_FILTER = document.querySelector('#clearRangeFilter');
 const RANGE_FILTER_COUNT_MIN = document.querySelector('#rangeFilterCountMin');
