@@ -50,9 +50,9 @@ const INSERT_HTML=(dat)=>{
 }
 const SORT_CAT=(dat)=>{
     dat.sort((a,b)=>{
-        if(ORDER==='ASC_PRICE'){
+        if(ORDER==='DESC_PRICE'){
             return b.cost - a.cost;
-        }else if(ORDER==='DESC_PRICE'){
+        }else if(ORDER==='ASC_PRICE'){
             return a.cost - b.cost;
         }else if(ORDER==='SOLD'){
             return b.soldCount - a.soldCount;
