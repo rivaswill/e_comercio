@@ -86,6 +86,7 @@ const SEARCHING=(dat)=>{
             result.push(product)
         }
     }
+    if(result === []){result = dat}
     INSERT_HTML(result)
 }
 document.addEventListener("DOMContentLoaded", async function(){
