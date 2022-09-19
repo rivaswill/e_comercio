@@ -324,7 +324,7 @@ const INSERT =()=>{
 
         CONTAINER.innerHTML += inner;
     }
-    texto ='';
+    
 }
 const CMNT_sec =(e)=>{
     CMNT_SEC = e.querySelector('.cment-sec');
@@ -333,11 +333,13 @@ const responder =(e)=>{
     resp = true;
     CMNT.querySelector('.card-footer').classList.add('ms-5');
 }
-const comentar=()=>{
-    
-    INSERT()
-}
 const cancelar=()=>{
     CMNT.querySelector('.card-footer').classList.remove('ms-5');
     resp = false;
+}
+const comentar=()=>{
+    
+    INSERT();
+    tArea.value = '';
+    cancelar();
 }
