@@ -1,4 +1,4 @@
-const PRODUCTS = PRODUCTS_URL + localStorage.catID + '.json';
+const PRODUCTS = PRODUCTS_URL + localStorage.catID + EXT_TYPE;
 
 const list_cnt = document.getElementById("list-container");
 
@@ -21,7 +21,7 @@ async function getData(datos){
 
 insertHTML=(array)=>{
     let html = `
-        <div class="list-group-item list-group-item-action">
+        <div class="list-group-item list-group-item-action" onclick='productsInfo(${localStorage.catID},${array.id})'>
             <div class="row">
                 <div class="col-3">
                     <img src="${array.image}" alt="product image" class="img-thumbnail">
@@ -29,7 +29,7 @@ insertHTML=(array)=>{
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
-                        <h4>${array.name}</h4> 
+                        <h4>${array.name} - ${array.currency}${array.cost}</h4> 
                         <p>${array.description}</p> 
                         </div>
                         <small class="text-muted">${array.soldCount} vendidos</small> 
@@ -88,6 +88,30 @@ const SEARCHING=(dat)=>{
     }
     if(result === []){result = dat}
     INSERT_HTML(result)
+}
+//obtención de la info de los datos
+let pI
+const productsInfo = (CategorieID,productID) =>{
+    if (pI  == undefined){
+        if (localStorage.productsInfo  == undefined){
+            pI = {
+                catID : [],
+                proID : [],
+                cant  : []
+            }
+        }else{
+        pI = JSON.parse(localStorage.productsInfo )
+        }
+    }
+
+    if (pI.proID.some(e=>e== productID)) {
+        pI.cant[pI.proID.indexOf(productID)]++
+    }else{
+        pI.catID.push(CategorieID);
+        pI.proID.push(productID);
+        pI.cant.push(1);
+    }
+    localStorage.setItem("productsInfo", JSON.stringify (pI));
 }
 document.addEventListener("DOMContentLoaded", async function(){
     
