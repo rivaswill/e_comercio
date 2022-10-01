@@ -40,7 +40,7 @@ let getJSONData = function(url){
     });
 }
 const clean=()=>{
-  localStorage.clear()
+  localStorage.mail='';
 }
 
 //localStorage
