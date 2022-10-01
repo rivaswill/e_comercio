@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         <li><a class="dropdown-item" href="./product-info.html">Mi carrito</a></li>
         <li><a class="dropdown-item" href="./my-profile.html">Mi perfil</a></li>
         <li><a class="dropdown-item" href="./index.html"
-                onclick='()=>{localStorage.mail=''}'>Cerrar sesión</a></li>
+                onclick='()=> localStorage.clear;'>Cerrar sesión</a></li>
       </ul>
       `
       document.querySelector('.nav-item:first-child>a').setAttribute('href','./login.html');
