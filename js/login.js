@@ -1,5 +1,5 @@
 
-/*ostrar contraseña */
+/*mostrar contraseña */
 const showPsswd_boton = document.querySelector('.show-pass');
 const showPsswd_icono = document.querySelector('.fa-solid');
 
@@ -35,7 +35,7 @@ const btn = document.getElementById('btn-lgn');
 
 btn.addEventListener('click', ()=>{
 
-    localStorage.setItem('mail', mail.value);
+    localStorage.mail= mail.value;
     
     let psswdCheck = psswd.value == '';
     let mailCheck = mail.value == '';

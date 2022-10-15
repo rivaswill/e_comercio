@@ -21,7 +21,7 @@ async function getData(datos){
 
 insertHTML=(array)=>{
     let html = `
-        <div class="list-group-item list-group-item-action" onclick='productsInfo(${localStorage.catID},${array.id})'>
+        <div class="list-group-item list-group-item-action" onclick='productsInfo(${array.id})'>
             <div class="row">
                 <div class="col-3">
                     <img src="${array.image}" alt="product image" class="img-thumbnail">
@@ -91,11 +91,10 @@ const SEARCHING=(dat)=>{
 }
 //obtención de la info de los datos
 let pI
-const productsInfo = (CategorieID,productID) =>{
+const productsInfo = (productID) =>{
     if (pI  == undefined){
         if (localStorage.productsInfo  == undefined){
             pI = {
-                catID : [],
                 proID : [],
                 cant  : []
             }
@@ -107,7 +106,6 @@ const productsInfo = (CategorieID,productID) =>{
     if (pI.proID.some(e=>e== productID)) {
         pI.cant[pI.proID.indexOf(productID)]++
     }else{
-        pI.catID.push(CategorieID);
         pI.proID.push(productID);
         pI.cant.push(1);
     }

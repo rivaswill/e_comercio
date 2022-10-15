@@ -4,7 +4,7 @@ const getData =async(dt)=>{
     let response = await fetch(dt);
     let data = await response.json();
     return data;
-}
+};
 const getLocalData =()=>{
     let res = { };
 
@@ -17,329 +17,259 @@ const getLocalData =()=>{
     return data;
 }
 
-const insertHTML =(dt,index)=>{
-    const catName = dt.catName;
-    const cant = getLocalData().cant;
-    let comentarios =`
-    <section class="accordion-body" onclick="CNT(this)">
-      <div class="container">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-12 col-lg-10 col-xl-8">
-            <div class="card">
+let pI
+const productsInfo = (productID) =>{
+    
+    pI = JSON.parse(localStorage.productsInfo )
+
+    if (pI.proID.some(e=>e== productID)) {
+        pI.cant[pI.proID.indexOf(productID)]++
+    }else{
+        pI.proID.push(productID);
+        pI.cant.push(1);
+    }
+    localStorage.setItem("productsInfo", JSON.stringify (pI));
+    location.reload();
+}
+const insertHTML =(pi,pc,index)=>{
+    
+    let images = '';
+    pi.images.forEach(e => {
+        images +=`
+            <div class="col h-25"><img class="img-fluid" src="${e}" alt="" srcset=""></div>
+        `
+    });
+
+    let commets ='';
+    pc.forEach(e=>{
+        let star='';
+        for (let i = 0; i < e.score; i++) {
+            star +=`
+            <i class="bi bi-star-fill orange"></i>
+            `
+        }
+        if (e.score<5) {
+            for (let i = 0; i < 5-e.score; i++) {
+                star +=`
+                <i class="bi bi-star-fill gray"></i>
+                `
+            }
+        }
+        
+        commets +=`
+        <div class="d-flex flex-start mb-4">
+            <img class="rounded-circle shadow-1-strong me-3"
+              src="https://dummyimage.com/100" alt="avatar" width="65"
+              height="65" />
+            <div class="card w-100">
               <div class="card-body p-4">
-                <div class="row">
-                  <div class="col">
-                    <div id="CONTAINER">
-                    <div class="cment-princ" onclick="CMNT_sec(this)">
-                      <!-- comentario principal -->
-                      <div class="d-flex flex-start mt-2">
-                        <img class="rounded-circle shadow-1-strong me-3"
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
-                          height="65" />
-                        <div class="flex-grow-1 flex-shrink-1">
-                          <div>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <p class="mb-1">
-                                Maria Salazar <span class="small"> - hace 2 horas 
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                              </span>
-                              </p>
-                            </div>
-                            <p class="small mb-0">
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, architecto dolor id nisi non voluptatum nulla explicabo harum obcaecati officia soluta quibusdam odio aspernatur! Expedita.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-end"><a href="#!" onclick="responder(this)"><i class="fas fa-reply fa-xs"></i><span class="small"> responder</span></a></div>
-
-                      <div class="cment-sec">
-
-                        <!-- comentario, secundario -->
-                        <div class="d-flex flex-start mt-2 ms-5">
-                          <img class="rounded-circle shadow-1-strong"
-                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar"
-                              width="65" height="65" />
-                          <div class="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-1">
-                                  Simona Díaz <span class="small">- hace 3 horas 
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                  </span>
-                                </p>
-                              </div>
-                              <p class="small mb-0">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores, itaque.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- comentario, secundario -->
-                        <div class="d-flex flex-start mt-2 ms-5">
-                          <img class="rounded-circle shadow-1-strong"
-                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar"
-                              width="65" height="65" />
-                          <div class="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-1">
-                                  John Álvarez <span class="small">- hace 4 horas 
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                  </span>
-                                </p>
-                              </div>
-                              <p class="small mb-0">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex repellat iusto tempora, voluptatibus provident eveniet odio eum velit eos reprehenderit maxime atque possimus laborum at.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                      
-                    </div>
-                    <div class="cment-princ" onclick="CMNT_sec(this)" >
-                      <!-- comentario principal -->
-                      <div class="d-flex flex-start mt-4">
-                        <img class="rounded-circle shadow-1-strong me-3"
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp" alt="avatar" width="65"
-                          height="65" />
-                        <div class="flex-grow-1 flex-shrink-1">
-                          <div>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <p class="mb-1">
-                                Natalia Gimón <span class="small">- hace 2 horas 
-                                  <span class="fa fa-star checked"></span>
-                                  <span class="fa fa-star checked"></span>
-                                  <span class="fa fa-star"></span>
-                                  <span class="fa fa-star"></span>
-                                  <span class="fa fa-star"></span>
-                                </span>
-                              </p>
-                            </div>
-                            <p class="small mb-0">
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur placeat itaque quam sunt nisi quis animi, iusto repudiandae commodi aliquid accusamus, mollitia repellat culpa pariatur odio non illum esse laborum deserunt soluta omnis ipsam enim.
-                            </p>
-                          </div>                        
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-end"><a href="#!" onclick="responder(this)"><i class="fas fa-reply fa-xs"></i><span class="small"> responder</span></a></div>
-                      <div class="cment-sec">
-
-
-
-                      </div>
-                    </div>
+                <div class="">
+                  <h5>${e.user}</h5>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="small">${e.dateTime}</p>
+                    <div>${star}</div>
                   </div>
-                    <!-- caja -->
-                    <div class="card-footer py-3 border-0 mt-4" style="background-color: transparent;">
-                      <div class="d-flex flex-start w-100">
-                        <img class="rounded-circle shadow-1-strong me-3"
-                          src="https://dummyimage.com/100" alt="avatar" width="40"
-                          height="40" />
-                        <div class="form-outline w-100">
-                          <textarea class="form-control" id="textArea" rows="4"
-                            style="background: #fff;"></textarea>
-                          <label class="form-label" for="textAreaExample">mensaje</label>
-                        </div>
-                      </div>
-                      <div class="float-end mt-2 pt-1">
-                        <button id="cmnt" type="button" class="btn btn-primary btn-sm" onclick="comentar()">comentar</button>
-                        <button id="cncl" type="button" class="btn btn-outline-primary btn-sm" onclick="cancelar()">cancelar</button>
-                      </div>
-                    </div>
+                  <p>
+                    ${e.description}
+                  </p>
+  
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span></span>
+                    <a href="#!" class="link-muted"><i class="fas fa-reply me-1"></i> Reply</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        `
+    })
+
+    let imgRel='';
+    let btnRel='';
+    let prdRel='';
+    pi.relatedProducts.forEach((e,i) => {
+        if (i==0) {
+            imgRel += `
+            <div class="carousel-item active btn" onclick="productsInfo(${e.id})">
+                <img src="${e.image}" class="d-block w-100" alt="...">
+                <p>${e.name}</p>
+            </div>
+            `
+            btnRel += `
+            <button type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i+1}"></button>
+            `
+        }else{
+            imgRel += `
+            <div class="carousel-item btn" onclick="productsInfo(${e.id})">
+                <img src="${e.image}" class="d-block w-100" alt="...">
+                <p>${e.name}</p>
+            </div>
+            `
+            btnRel += `
+            <button type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide-to="${i}" aria-label="Slide ${i+1}"></button>
+            `
+        }
+    });
+    prdRel=`
+    <div id="carouselExampleIndicators${pi.id}" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      ${btnRel}
+    </div>
+    <div class="carousel-inner">
+      ${imgRel}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
     `
-    let html
-    dt.products.forEach(e => {
-        if (getLocalData().proID[index] == e.id){
-            html=`
-            <div class="product card mt-4">
-            <div class="card-body">
-                    <div class="text p-4 row">
-                        <div class="col"><h2>${e.name}</h2></div>
-                        <div class="col-2 d-inline">
-                            <h3 class="text-muted small">categoria:</h3>
-                            <p class="h3">${catName}</p>
-                        </div>
-                    </div>
-                    <hr class="my-4">
-                    
-                    <div class="row">
-                        <div class="col">
-                            <h3>Descripción:</h3>
-                            <p>${e.description}</p>
-                        </div>
-                        <div class="col-2 ">
-                            <p> <span class="text-muted small">Cantidad:</span> ${cant[index]}</p>
-                            <h3 class="text-muted small">Precio:</h3>
-                            <p class="h3">${e.currency}${e.cost}</p> 
-                        </div>
-                    </div>
+    
+    const cant = getLocalData().cant;
+    let html=`
+    <div class="product card mt-4  p${pi.id}">
+    <div class="card-body">
+            <div class="text p-4 row">
+                <div class="col"><h2>${pi.name}</h2></div>
+                <div class="col-2 d-inline">
+                    <h3 class="text-muted small">categoria:</h3>
+                    <p class="h3">${pi.category}</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            
+            <div class="row">
+                <div class="col">
+                    <h3>Descripción:</h3>
+                    <p>${pi.description}</p>
+                    <p> <span class="text-muted small">Cantidad:</span> ${cant[index]}</p>
+                    <span class="inline-block"> <h3 class="text-muted small">Precio:</h3>
+                    <p class="h3">${pi.currency}${pi.cost}</p> </span>
+                </div>
+                <div class="col-3 ">
+                <h3 class="text-muted small">Productos Relacionados:</h3>
+                    ${prdRel}
+                </div>
+            </div>
 
-                    
-                    
-                    
-                    
-                    
-                    <h3>imagenes</h3>
-                    <img class ="cnt-img" src="${e.image}" alt="">
+            <h3>imagenes</h3>
+            <div class="row mb-3">
+                ${images}
+            </div>
 
-                    <div class="accordion mt-4" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                Comentarios
-                            </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                            <div class="accordion-body">
-                                
-                                
-                            ${comentarios}
-                                
+            
+            <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions${pi.id}" aria-controls="offcanvasWithBothOptions">ver comentarios..</button>
 
+                <div onclick="comentar(this)" class="offcanvas offcanvas-start w-50" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions${pi.id}" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">${pi.name}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                
+                <div>
+                ${commets}
+                </div>
 
+                <div class="d-flex flex-start">
+                    <img class="rounded-circle shadow-1-strong me-3"
+                    src="https://dummyimage.com/100" alt="avatar" width="65"
+                    height="65" />
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                        <div class="">
+                            <h5>Add a comment</h5>
+                            <div class="form-outline">
+                            <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                            <label class="form-label" for="textAreaExample">¿Cúal es tu punto de vista?</label>
                             </div>
+                            <div class="d-flex justify-content-between mt-3">
+                            <span></span>
+                            <a type="button" class="btn link-muted">
+                                Send <i class="fas fa-long-arrow-alt-right ms-1"></i>
+                            </a>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            ` 
-            cnt.innerHTML+= html
-        }
-     });
+
+                    </div>
+                </div>
+
+
+
+            
+
+    </div>
+    </div>
+          `  
+          
+    cnt.innerHTML+= html
+   
 }
+
+const comentar=(e)=>{
+    const text = e.querySelector('textarea');
+    const cnt = e.querySelector('div+div>div');
+    let commets = '';
+    e.querySelector('.form-outline + div > .btn').addEventListener('click',()=>{
+        if (text.value!='') {
+            commets +=`
+            <div class="d-flex flex-start mb-4">
+                <img class="rounded-circle shadow-1-strong me-3"
+                  src="https://dummyimage.com/100" alt="avatar" width="65"
+                  height="65" />
+                <div class="card w-100">
+                  <div class="card-body p-4">
+                    <div class="">
+                      <h5>${localStorage.mail}</h5>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <p class="small">${new Date().toLocaleString('lt-LT')}</p>
+                        <div>
+                            <i class="bi bi-star-fill gray"></i>
+                            <i class="bi bi-star-fill gray"></i>
+                            <i class="bi bi-star-fill gray"></i>
+                            <i class="bi bi-star-fill gray"></i>
+                            <i class="bi bi-star-fill gray"></i>
+                        </div>
+                      </div>
+                      <p>
+                        ${text.value}
+                      </p>
+      
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span></span>
+                        <a href="#!" class="link-muted"><i class="fas fa-reply me-1"></i> Reply</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `
+            text.value='';
+
+            cnt.innerHTML+=commets
+        }
+    })
+}
+
 const useData =()=>{
-cnt.innerHTML='';
-getLocalData().catID.forEach(async(e,i)=> {
-    const PRODUCTS = PRODUCTS_URL + e + EXT_TYPE; 
-    const dt = await getData(PRODUCTS);
-    insertHTML(dt,i)
-    });
+    cnt.innerHTML='';
+    let {proID,}=getLocalData()
+    proID.forEach(async(e,i)=> {
+        const PRODUCTS_info = PRODUCT_INFO_URL + e + EXT_TYPE; 
+        const p_i = await getData(PRODUCTS_info);
+        const PRODUCTS_coments = PRODUCT_INFO_COMMENTS_URL + e + EXT_TYPE; 
+        const p_c = await getData(PRODUCTS_coments);
+        insertHTML(p_i,p_c,i)
+        });
 }
 document.addEventListener('DOMContentLoaded', ()=>{
            useData() 
 })
 
-let resp = false;
-let CMNT;
-let CONTAINER;
-let tArea;
-let CMNT_SEC;
-const CNT =(e)=>{
-    CMNT = e;
-    CONTAINER = e.querySelector('#CONTAINER');
-    tArea = e.querySelector('#textArea');
-}
-const INSERT =()=>{
-    let texto = tArea.value;
-    let inner;
-    let imagen = 'https://dummyimage.com/100';
-    let nombre = localStorage.mail;
-    if (resp) {
-        inner =`
-        <!-- comentario, secundario -->
-        <div class="d-flex flex-start mt-2 ms-5">
-            <img class="rounded-circle shadow-1-strong me-3"
-            src="${imagen}" alt="avatar" width="65"
-            height="65" />
-            <div class="flex-grow-1 flex-shrink-1">
-            <div>
-            <div class="d-flex justify-content-between align-items-center">
-                <p class="mb-1">
-                    ${nombre} <span class="small">- hace 1 min 
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </span>
-                </p>
-                </div>
-                <p class="small mb-0">
-                ${texto}
-                </p>
-                </div>
-            </div>
-            </div>
-            `
-            CMNT_SEC.innerHTML += inner;
-        }else{
-        inner = `
-        <div class="cment-princ" onclick="CMNT_sec(this)">
-        <!-- comentario principal -->
-        <div class="d-flex flex-start mt-4">
-          <img class="rounded-circle shadow-1-strong me-3"
-            src="${imagen}" alt="avatar" width="65"
-            height="65" />
-          <div class="flex-grow-1 flex-shrink-1">
-            <div>
-              <div class="d-flex justify-content-between align-items-center">
-                <p class="mb-1">
-                    ${nombre} <span class="small">- hace 1 min
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </span>
-                </p>
-              </div>
-              <p class="small mb-0">
-                    ${texto}
-              </p>
-            </div>                        
-          </div>
-        </div>
-        <div class="d-flex justify-content-end"><a href="#!" onclick="responder(this)"><i class="fas fa-reply fa-xs"></i><span class="small"> responder</span></a></div>
-        <div class="cment-sec">
-    
-    
-    
-        </div>
-        </div>
-        `;
-
-        CONTAINER.innerHTML += inner;
-    }
-    
-}
-const CMNT_sec =(e)=>{
-    CMNT_SEC = e.querySelector('.cment-sec');
-}
-const responder =(e)=>{
-    resp = true;
-    CMNT.querySelector('.card-footer').classList.add('ms-5');
-}
-const cancelar=()=>{
-    CMNT.querySelector('.card-footer').classList.remove('ms-5');
-    resp = false;
-}
-const comentar=()=>{
-    
-    INSERT();
-    tArea.value = '';
-    cancelar();
-}
