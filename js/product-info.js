@@ -13,9 +13,37 @@ const getLocalData =()=>{
     data.proID.forEach(e=>{
         res[e] = res[e] + 1 || 1
     })
-
+    data = {
+      proID: [JSON.parse(localStorage.productsInfo).proID.pop()],
+      cant:[JSON.parse(localStorage.productsInfo).cant.pop()]
+    }
     return data;
 }
+
+
+
+let Sell;
+const sell_btn = (productID) => {
+  if (Sell == undefined) {
+    if (localStorage.productsSell == undefined) {
+      Sell = {
+        proID: [],
+        cant: [],
+      };
+    } else {
+      Sell = JSON.parse(localStorage.productsSell);
+    }
+  }
+
+  if (Sell.proID.some((e) => e == productID)) {
+    Sell.cant[Sell.proID.indexOf(productID)]++;
+  } else {
+    Sell.proID.push(productID);
+    Sell.cant.push(1);
+  }
+  localStorage.setItem("productsSell", JSON.stringify(Sell));
+};
+
 
 let pI
 const productsInfo = (productID) =>{
@@ -138,6 +166,7 @@ const insertHTML =(pi,pc,index)=>{
                 <div class="col-2 d-inline">
                     <h3 class="text-muted small">categoria:</h3>
                     <p class="h3">${pi.category}</p>
+                    <button onclick='sell_btn(${pi.id})' type="button" class="btn btn-success">comprar</button>
                 </div>
             </div>
             <hr class="my-4">

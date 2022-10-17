@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         ${localStorage.mail}
       </a>
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" href="./product-info.html">Mi carrito</a></li>
+        <li><a class="dropdown-item" href="./cart.html">Mi carrito</a></li>
         <li><a class="dropdown-item" href="./my-profile.html">Mi perfil</a></li>
         <li><a class="dropdown-item" href="./index.html" onclick="clean()">Cerrar sesión</a></li>
       </ul>
