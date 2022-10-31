@@ -126,8 +126,7 @@ const cuenta = document.querySelector(".cuenta");
 const vencimiento = document.querySelector(".vencimiento");
 
 const exito =()=> {
-  document.querySelector('form').checkValidity() && btnRegistrar.setAttribute("data-bs-target","#exito")
-  setTimeout(()=> location.reload() , 5000)
+  document.querySelector('form').checkValidity() && (btnRegistrar.setAttribute("data-bs-target","#exito"), setTimeout(()=> location.reload() , 1000))
 }
 
 const payForm = () => {
