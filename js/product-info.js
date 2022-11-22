@@ -88,10 +88,10 @@ const createHTM = (data, coments) => {
       </div>
       <div class="card">
         <div class="img_profile">
-          <img src="img/img_perfil.png" alt="" srcset="" />
+          <img src=${USER.img? USER.img:"img/img_perfil.png"} alt="" srcset="" />
         </div>
         <div class="cnt">
-          <span>${USER.mail}</span>
+          <span>${USER.userName?USER.userName:USER.mail}</span>
           <div class="cnt_star">
             <i class="fa-solid fa-star star" value="5"></i>
             <i class="fa-solid fa-star star" value="4"></i>

@@ -10,7 +10,7 @@
   .card {
     background-color: var(--bg-color-alt);
     cursor: initial;
-    
+
     &:nth-child(2) {
       grid-row: span 2;
       .card_prodInf_cnt_img {
@@ -19,10 +19,10 @@
         gap: 0.5rem;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
-        img{
-          transition: transform .3s ease-in;
-          &:hover{
-            transform:scale(1.5)
+        img {
+          transition: transform 0.3s ease-in;
+          &:hover {
+            transform: scale(1.5);
           }
         }
       }
@@ -54,7 +54,7 @@
         grid-column: 2;
         overflow: hidden;
         border-radius: 1rem;
-        img{
+        img {
           cursor: pointer;
           display: inline-block;
           position: relative;
@@ -78,7 +78,7 @@
         border-radius: 50%;
         background-color: var(--bg-color);
         img {
-          width: inherit;
+          height: inherit;
         }
       }
       .cnt {
@@ -111,11 +111,19 @@
 }
 
 @keyframes slidy {
-  0%   { top: 0;     }
-  15%  { top: 0;     }
-  75%  { top: -100%; }
-  100% { top: -100%; }
+  0% {
+    top: 0;
   }
+  15% {
+    top: 0;
+  }
+  75% {
+    top: -100%;
+  }
+  100% {
+    top: -100%;
+  }
+}
 
 .star {
   transition: color 0.3s ease;

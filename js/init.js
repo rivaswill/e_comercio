@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let USER = JSON.parse(localStorage.user);
   let username = document.querySelector(".nav_center .btn_link:nth-child(2)");
 
-  if (USER.mail == "")
+  if (!USER.mail)
     (USER.mail = "Iniciar Sesión"), (localStorage.user = JSON.stringify(USER));
 
-  if (username != null) {
-    username.innerText = JSON.parse(localStorage.user).mail;
-    if (JSON.parse(localStorage.user).mail == "Iniciar Sesión") {
+  if (username) {
+    username.innerText = USER.userName?USER.userName:USER.mail;
+    if (USER.mail == "Iniciar Sesión") {
       username.setAttribute("href", "index.html");
       document.querySelector(".nav_center .btn_link").style.display = "none";
     } else {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //tema
 
-if (localStorage.dataTheme == undefined)
+if (!localStorage.dataTheme)
   localStorage.setItem("dataTheme", "light");
 let theme = localStorage.getItem("dataTheme");
 

@@ -848,7 +848,7 @@ input[type=number] {
 }
 
 .perfil .img {
-  width: 100%;
+  height: 100%;
 }
 .perfil .img_perfil {
   z-index: 1;
@@ -1033,7 +1033,7 @@ input[type=number] {
   background-color: var(--bg-color);
 }
 .prodInf .card:nth-child(4) .img_profile img {
-  width: inherit;
+  height: inherit;
 }
 .prodInf .card:nth-child(4) .cnt {
   padding: 0 2rem;
