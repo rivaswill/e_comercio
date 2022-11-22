@@ -1,0 +1,27 @@
+.footer {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  span {
+    padding-bottom: 2rem;
+    flex: 1 1 auto;
+    p {
+      text-align: end;
+    }
+
+    &:nth-child(1) {
+      p {
+        text-align: start;
+      }
+    }
+    &:nth-last-child(1) {
+      flex: 1 1 100%;
+      padding-bottom: 0;
+      p {
+        text-align: center;
+      }
+    }
+  }
+}

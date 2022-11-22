@@ -1,0 +1,21 @@
+.JAP {
+  font-family: sans-serif;
+  height: 4rem;
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -1.2rem;
+  &_letter {
+    display: inline-block;
+    height: 4rem;
+    opacity: 0.8;
+  }
+  &_J {
+    color: var(--link);
+  }
+  &_A {
+    color: var(--success);
+  }
+  &_P {
+    color: var(--orange);
+  }
+}

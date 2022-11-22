@@ -1,0 +1,22 @@
+.login {
+  display: grid;
+  place-content: center;
+  &_cnt {
+    &::before {
+      content: "";
+      background-color: var(--muted);
+      width: 50vw;
+      height: 45vh;
+      opacity: 0.2;
+      position: absolute;
+      border-radius: 1rem;
+    }
+    position: relative;
+    padding: 2rem;
+    display: grid;
+    grid-auto-rows: 1fr;
+    align-content: center;
+    width: 50vw;
+    height: 45vh;
+  }
+}

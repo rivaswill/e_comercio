@@ -6,400 +6,294 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link rel="icon" type="image/svg+xml" href="img/logo.png" />
     <title>eMercado - Todo lo que busques está aquí</title>
 
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i"
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
       rel="stylesheet"
     />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="scss/styles.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/5b1611243e.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-      <div class="container">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav w-100 justify-content-between">
-            <li class="nav-item">
-              <a class="nav-link active" href="index.html">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="categories.html">Categorías</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="sell.html">Vender</a>
-            </li>
-            <li class="nav-item"></li>
-          </ul>
+    <header>
+      <!-- navbar -->
+      <nav class="nav">
+        <a href="home.html" class="nav_btn nav_logo">
+          <i class="fa-solid fa-moon"></i>
+        </a>
+        <div class="nav_center">
+          <a href="categories.html" class="nav_btn btn btn_link">categorias</a>
+          <a href="my-profile.html" class="nav_btn btn btn_link">perfil</a>
         </div>
-      </div>
-    </nav>
+        <div class="input_check">
+          <input type="checkbox" id="switch" name="theme" />
+          <label for="switch"> Toggle</label>
+        </div>
+      </nav>
+    </header>
+
+    <!-- content -->
     <main>
-      <div class="container">
-        <h2 class="text-center">carrito de compras</h2>
-        <h2>Articulos a comprar</h2>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Costo</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>nombre</td>
-              <td>costo</td>
-              <td>
+      <h1 class="tittle">carrito de compras</h1>
+      <div class="table">
+        <div class="table_head input_input table_row">
+          <div class="table_item_bold table_item"></div>
+          <div class="table_item_bold table_item">Nombre</div>
+          <div class="table_item_bold table_item">Costo</div>
+          <div class="table_item_bold table_item">Cantidad</div>
+          <div class="table_item_bold table_item">Subtotal</div>
+        </div>
+        <div class="table_body"></div>
+        <div class="table_foot table_row">
+          <div class="table_item_bold table_item"></div>
+          <div class="table_item_bold table_item"></div>
+          <div class="table_item_bold table_item"></div>
+          <div class="table_item_bold table_item"></div>
+          <div class="table_item_bold table_item subtotalTotal">00000</div>
+        </div>
+      </div>
+      <div class="envio">
+        <h2 class="subtittle">Tipo de envio</h2>
+        <div class="envio_tipo">
+          <div class="radio">
+            <input
+              class="radio_input radio_input_envio"
+              type="radio"
+              name="tipoEnvio"
+              id="Premium"
+              value="15"
+            /><label class="radio_label" for="Premium"
+              >Premium 2 a 5 días (15%)</label
+            >
+          </div>
+          <div class="radio">
+            <input
+              class="radio_input radio_input_envio"
+              type="radio"
+              name="tipoEnvio"
+              id="Express"
+              value="7"
+            /><label class="radio_label" for="Express"
+              >Express de 5 a 8 días (7%)</label
+            >
+          </div>
+          <div class="radio">
+            <input
+              class="radio_input radio_input_envio"
+              type="radio"
+              name="tipoEnvio"
+              id="Standard"
+              value="5"
+              checked
+            /><label class="radio_label" for="Standard"
+              >Standard de 12 a 15 días (5%)</label
+            >
+          </div>
+        </div>
+        <h2 class="subtittle">Divisas</h2>
+        <div class="envio_moneda">
+          <div class="input_check">
+            <input type="checkbox" id="moneda" name="moneda" />
+            <label for="moneda"> </label>
+          </div>
+          <p>UYU</p>
+        </div>
+        <h2 class="subtittle">Costos</h2>
+        <div class="envio_costo">
+          <div class="table">
+            <div class="table_head input_input table_row">
+              <div class="table_item_bold table_item">Costo de envio</div>
+              <div class="table_item_bold table_item">Total</div>
+            </div>
+            <div class="table_row">
+              <div class="table_item_bold table_item totalEnvio">0</div>
+              <div class="table_item_bold table_item total">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="form" action="">
+        <h2 class="subtittle">Dirección de envio</h2>
+        <div class="form_address">
+          <section class="input">
+            <input
+              id="calle"
+              type="text"
+              class="input_input"
+              name="calle"
+              minlength="10"
+              required
+            />
+            <label for="calle" class="input_label"> Calle </label>
+          </section>
+          <section class="input">
+            <input
+              id="calle_num"
+              type="text"
+              class="input_input"
+              name="calle_num"
+              required
+              minlength="4"
+            />
+            <label for="calle_num" class="input_label"> Número </label>
+          </section>
+          <section class="input">
+            <input
+              id="calle_esq"
+              type="text"
+              class="input_input"
+              name="calle_esq"
+              required
+              min="4"
+            />
+            <label for="calle_esq" class="input_label"> Esquina </label>
+          </section>
+          <section class="btn_fancy_cnt">
+            <a id="ingresar" class="btn btn_fancy" href="#">Forma de pago</a>
+          </section>
+        </div>
+        <div class="card data">
+          <div class="card_body">
+            <i class="fa-solid fa-x"></i>
+            <div class="radio">
+              <input
+                class="radio_input radio_input_pay"
+                type="radio"
+                name="pay"
+                id="creditCard"
+                required
+              /><label class="radio_label" for="creditCard"
+                >Tarjeta de Credito</label
+              >
+              <section class="input">
                 <input
-                  type="number"
-                  class="form-control w-25"
-                  value="0"
-                  min="0"
+                  id="tarjeta"
+                  type="text"
+                  class="input_input"
+                  name="tarjeta"
+                  required
+                  minlength="16"
                 />
-              </td>
-              <td>subtotal</td>
-            </tr>
-          </tbody>
-          <tr>
-            <th scope="row">Subtotal</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="total">0</td>
-          </tr>
-        </table>
-
-        <hr />
-        <div class="row">
-          <div class="col-4">
-            <h3>tipo de envio</h3>
-
-            <div class="form-group row">
-              <label class="col-sm-2"> </label>
-              <div class="col-sm-10">
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input envio"
-                    onclick="envio()"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="15"
-                  />
-                  <label class="form-check-label" for="inlineRadio1"
-                    >Premium 2 a 5 días (15%)</label
-                  >
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input envio"
-                    onclick="envio()"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio2"
-                    value="7"
-                  />
-                  <label class="form-check-label" for="inlineRadio2"
-                    >Express de 5 a 8 días (7%)</label
-                  >
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input envio"
-                    onclick="envio()"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio3"
-                    value="5"
-                    checked
-                  />
-                  <label class="form-check-label" for="inlineRadio3"
-                    >Standard de 12 a 15 días (5%)</label
-                  >
-                </div>
-              </div>
+                <label for="tarjeta" class="input_label">
+                  Nro de tarjeta
+                </label>
+              </section>
+              <section class="input">
+                <input
+                  id="tarjeta_seguridad"
+                  type="text"
+                  class="input_input"
+                  name="tarjeta_seguridad"
+                  required
+                  minlength="3"
+                />
+                <label for="tarjeta_seguridad" class="input_label">
+                  Cdg Seguridad
+                </label>
+              </section>
+              <section class="input">
+                <input
+                  id="tarjeta_vencimiento"
+                  type="text"
+                  class="input_input"
+                  name="tarjeta_vencimiento"
+                  required
+                  minlength="5"
+                />
+                <label for="tarjeta_vencimiento" class="input_label">
+                  Vencimiento
+                </label>
+              </section>
             </div>
-          </div>
-          <div class="col d-flex flex-column align-items-center">
-            <h3>Costos</h3>
-            <div class="container">
-              <div class="row g-0 text-center">
-                <div
-                  class="col-6 col-md-4 border d-flex flex-column align-items-center"
-                >
-                  <h4>Costo de envio:</h4>
-                  <div class="costoEnvio justify-self-end">0</div>
-                </div>
-                <div
-                  class="col-sm-6 col-md-8 border d-flex flex-column align-items-center"
-                >
-                  <h4>total</h4>
-                  <div class="totalEnvio justify-self-end">0</div>
-                </div>
-              </div>
+            <div class="radio">
+              <input
+                class="radio_input radio_input_pay"
+                type="radio"
+                name="pay"
+                id="bankTransfer"
+                required
+              /><label class="radio_label" for="bankTransfer"
+                >Transferencia Bancaria</label
+              >
+              <section class="input">
+                <input
+                  id="cuenta"
+                  type="text"
+                  class="input_input"
+                  name="cuenta"
+                  required
+                  minlength="20"
+                />
+                <label for="cuenta" class="input_label"> Nro de Cuenta </label>
+              </section>
             </div>
           </div>
         </div>
-      </div>
+        
+        <div class="modal"><p>Su compra se ha Realizado con exito</p></div>
 
-      <div class="container">
-        <hr class="my-4" />
-        <h3>dirección de envio</h3>
-
-        <form
-          action="#"
-          method="get"
-          class="row mt-4 needs-validation"
-          novalidate
-        >
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="">
-                <i class="bi bi-geo-alt-fill"></i>
-              </span>
-            </div>
-            <input
-              placeholder="calle"
-              type="text"
-              class="form-control"
-              required
-            />
-            <input
-              placeholder="número"
-              type="text"
-              class="form-control"
-              required
-            />
-            <input
-              placeholder="esquina"
-              type="text"
-              class="form-control"
-              required
-            />
-            <div class="invalid-feedback">
-              Por favor, escriba correctamente tu dirección antes de completar
-              la compra.
-            </div>
-          </div>
-          <div class="col">
-            <div class="row g-3">
-              <div class="col-sm-12 pt-3">
-                <button
-                  type="button"
-                  class="btn btnPayForm btn-secondary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalTerminos"
-                  id="btn_terminos"
-                  requiered
-                >
-                  Formas de pago
-                </button>
-
-                <span class="invalido payForm">
-                  Por favor, complete la forma de pago de su preferencia para
-                  continuar.</span
-                >
-              </div>
-
-              <button class="btn btn-dark" id="registrar" type="submit" data-bs-toggle="modal" >
-                Finalizar compra
-              </button>
-            </div>
-          </div>
-
-          <div
-            class="modal fade"
-            id="modalTerminos"
-            tabindex="-1"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5">Forma de pago</h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-check">
-                    <input
-                      type="radio"
-                      class="form-input pay"
-                      id="validationFormCheck2"
-                      name="radio-stacked"
-                      onclick="payForm()"
-                    />
-                    <label
-                      class="form-check-label payLab w-100"
-                      for="validationFormCheck2"
-                      ><h4>Tarjeta de crédito</h4>
-                      <div class="container">
-                        <hr class="my-4" />
-                        <div class="form-floating mb-3">
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="floatingInput"
-                            placeholder="XXX"
-                            aria-describedby="validationServer03Feedback"
-                            required
-                          />
-                          <label for="floatingInput">Número de tarjeta</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="floatingInput"
-                            placeholder="XXX"
-                            aria-describedby="validationServer03Feedback"
-                            required
-                          />
-                          <label for="floatingInput">Codigo de seguridad</label>
-                        </div>
-                        <div class="form-floating">
-                          <input
-                            type="text"
-                            class="form-control vencimiento"
-                            id="floatingPassword"
-                            placeholder="XX/XX"
-                            aria-describedby="validationServer03Feedback"
-                            required
-                          />
-                          <label for="floatingPassword"
-                            >Fecha de vencimiento</label
-                          >
-                        </div>
-                        <div
-                          id="validationServer03Feedback"
-                          class="invalid-feedback"
-                        >
-                          Por favor escriba correctamente sus datos.
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                  <div class="form-check mb-3">
-                    <input
-                      type="radio"
-                      class="form-input pay pt-3"
-                      id="validationFormCheck3"
-                      name="radio-stacked"
-                      onclick="payForm()"
-                    />
-                    <label
-                      class="form-check-label payLab w-100"
-                      for="validationFormCheck3"
-                      ><h4>Transferencia bancaria</h4>
-                      <div class="container">
-                        <hr class="my-4" />
-                        <div class="form-floating mb-3">
-                          <input
-                            type="text"
-                            class="form-control cuenta"
-                            id="floatingInput"
-                            placeholder="XXX"
-                            aria-describedby="validationServer03Feedback"
-                            required
-                          />
-                          <label for="floatingInput">Numero de cuenta</label>
-                        </div>
-                        <div
-                          id="validationServer03Feedback"
-                          class="invalid-feedback"
-                        >
-                          Por favor escriba correctamente su numero de cuenta.
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="cnt container" id="cnt">
-        <div class="modal fade" id="exito" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">
-                  Su compra se ha registrado correctamente
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-            </div>
-          </div>
+        <div class="warnings">
+          <p></p>
+          <p></p>
         </div>
-      </div>
+        
+        <section class="btn_fancy_cnt">
+          <button id="submit" class="btn btn_fancy" type="submit">Finalizar compra</button>
+        </section>
+      </form>
     </main>
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-end">
-          <a href="#">Volver arriba</a>
+
+    <!-- footer -->
+    <footer class="footer">
+      <span>
+        <p>
+          <a class="link" href="#">Volver arriba</a>
         </p>
+      </span>
+      <span>
         <p>
           Este sitio forma parte de
-          <a href="https://jovenesaprogramar.edu.uy/" target="_blank"
+          <a
+            class="link btn_link"
+            href="https://jovenesaprogramar.edu.uy/"
+            target="_blank"
             >Jovenes a Programar</a
           >
           - 2022
         </p>
         <p>
-          Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la
-          letra del obligatorio.
+          Clickea
+          <a class="link btn_link" target="_blank" href="Letra.pdf">aquí</a>
+          para descargar la letra del obligatorio.
         </p>
-      </div>
+      </span>
+      <span>
+        <p>
+          sitio creado por Rivas Will
+          <a
+            class="btn_link muted"
+            href="http://github.com/rivaswill"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          -
+          <a
+            class="btn_link muted"
+            href="http://"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+        </p>
+      </span>
     </footer>
-    <div id="spinner-wrapper">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-
-    <style>
-      .payForm {
-        display: none;
-        color: red;
-      }
-    </style>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
     <script src="js/cart.js"></script>
   </body>

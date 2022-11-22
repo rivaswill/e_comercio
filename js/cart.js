@@ -1,172 +1,217 @@
-const cnt = document.querySelector("tbody");
+let USER = JSON.parse(localStorage.user);
+//cambiar el prodID por el vector
 
-const getData = async (dt) => {
-  let response = await fetch(dt);
-  let data = await response.json();
-  return data;
+const cnt = document.querySelector(".table_body");
+const totalEnvio = document.querySelector(".totalEnvio");
+const total = document.querySelector(".total");
+const subtotalTotal = document.querySelector(".subtotalTotal");
+let TOTAL = 0;
+
+//cambio de moneda
+const monedaSwitch = document.querySelector(
+  ".envio_moneda> .input_check > input"
+);
+monedaSwitch.addEventListener("click", () => {
+  if (monedaSwitch.checked)
+    document.querySelector(".envio_moneda> p").innerText = "USD";
+  else document.querySelector(".envio_moneda> p").innerText = "UYU";
+  insertHTML();
+});
+
+//crea el HTML
+const createHTML = (name, cost, currency, id, image) => {
+  if (monedaSwitch.checked) {
+    if (currency == "UYU") cost /= 40;
+  } else {
+    if (currency == "USD") cost *= 40;
+  }
+  TOTAL += cost;
+  let HTML = `
+  <div class="table_row input_input">
+  <div class="table_item">
+  <img src="${image}" alt="${name}" srcset="">
+  <i class="fa-solid fa-trash" onclick='deleteProd(${id})'></i>
+  </div>
+  <div class="table_item">${name}</div>
+  <div class="table_item">${cost}</div>
+  <div class="table_item">
+    <i class="fa-solid fa-minus minus" onclick='menosCant(this)'></i>
+    <input type="number" class="cantidadProd"
+  value="1" min="1">
+    <i class="fa-solid fa-plus plus" onclick='masCant(this)'></i>
+    </div>
+  <div class="table_item subtotalProd">${cost}</div>
+  </div>
+  `;
+  return HTML;
 };
-const getLocalData = () => {
-  let res = {};
-
-  let data = JSON.parse(localStorage.productsSell);
-
-  data.proID.forEach((e) => {
-    res[e] = res[e] + 1 || 1;
-  });
-
-  return data;
-};
-const envio = () => {
-  let total = parseInt(document.querySelector(".total").innerText);
-  let envio;
-  document
-    .querySelectorAll('[type="radio"].envio')
-    .forEach((e) => e.checked && (envio = e.value));
-  document.querySelector(".totalEnvio").innerText =
-    Math.floor(total * (envio / 100)) + total;
-  document.querySelector(".costoEnvio").innerText = Math.floor(
-    total * (envio / 100)
-  );
-};
-const ope = (e, productos, i) => {
-  opes = [];
-  document
-    .querySelectorAll('input[type="number"]')
-    .forEach((e) => opes.push(parseInt(e.value)));
-  e.querySelector(".subtotal").innerText = parseInt(productos) * opes[i];
-
-  total = 0;
-  document
-    .querySelectorAll(".subtotal")
-    .forEach((e) => (total += parseInt(e.innerText)));
-  document.querySelector(".total").innerText = total;
-  envio();
-};
-opes = [];
-let cost = 0;
-const insertHTML = (productos, i) => {
-  cost += productos.cost;
-  document.querySelector(".totalEnvio").innerText =
-    cost + Math.floor(cost * 0.05);
-  document.querySelector(".costoEnvio").innerText = Math.floor(cost * 0.05);
-
-  opes.push(1);
-  let html = `
-    <tr onclick='ope(this,${productos.cost},${i})'>
-        <th scope="row"><img src="${productos.images[1]}" alt="" style='width:100px'></th >
-        <td>${productos.name}</td>
-        <td>${productos.cost}</td>
-        <td><input type="number" class="form-control w-25"
-                   value="1" min="0"></td>
-        <td class='subtotal'>${productos.cost}</td>
-      </tr> 
-          `;
-
-  cnt.innerHTML += html;
-  document.querySelector(".total").innerText = cost;
-};
-const tabla = (productos, i) => {
-  opes.push(1);
-  let html = `
-    <tr onclick='ope(this,${productos.cost},${i})'>
-        <th scope="row"><img src="${productos.images[1]}" alt="" style='width:100px'></th >
-        <td>${productos.name}</td>
-        <td>${productos.cost}</td>
-        <td><input type="number" class="form-control w-25"
-                   value="1" min="1"></td>
-        <td class='subtotal'>${productos.cost}</td>
-      </tr> 
-          `;
-
-  cnt.innerHTML += html;
-};
-
-const useData = () => {
+const insertHTML = () => {
   cnt.innerHTML = "";
-  let { proID } = getLocalData();
-  proID.forEach(async (e, i) => {
-    const PRODUCTS_info = PRODUCT_INFO_URL + e + EXT_TYPE;
-    const p_i = await getData(PRODUCTS_info);
-    insertHTML(p_i, i);
+  const products = USER.cart;
+  TOTAL = 0;
+  if (products.length >= 1) {
+    products.forEach(async (e, i) => {
+      const PRODUCTS_info = PRODUCT_INFO_URL + e + EXT_TYPE;
+      let data = await getJSONData(PRODUCTS_info);
+      const { cost, currency, id, images, name } = data;
+      cnt.innerHTML += createHTML(name, cost, currency, id, images[0]);
+      //hace una suma con los totales de cada uno y les agrega el porcentaje
+      if (products.length === i + 1) {
+        totalEnvio.innerHTML = parseInt((5 / 100) * TOTAL);
+        total.innerHTML = parseInt((5 / 100) * TOTAL) + TOTAL;
+        subtotalTotal.innerHTML = TOTAL;
+      }
+    });
+  } else
+    cnt.innerHTML = `<div class="table_row input_input"><span class="subtittle">Por favor selecciona un <a class="link" href="products.html">producto</a> o una <a class="link" href="categories.html">categoria</a></span></div>`;
+};
+const deleteProd = (idProd) => {
+  USER.cart = USER.cart.filter((e) => e != idProd);
+  localStorage.user = JSON.stringify(USER);
+  window.location = "cart.html";
+};
+//cambios en la cantidad
+const tipoEnvio = document.querySelectorAll(".radio_input_envio");
+const masCant = (e) => {
+  e.previousElementSibling.valueAsNumber++;
+  changeCant(e.parentElement, e.previousElementSibling.valueAsNumber, "plus");
+};
+const menosCant = (e) => {
+  e.nextElementSibling.valueAsNumber > 1
+    ? (e.nextElementSibling.valueAsNumber--,
+      changeCant(e.parentElement, e.nextElementSibling.valueAsNumber, "minus"))
+    : (e.nextElementSibling.valueAsNumber = 1);
+};
+const changeCant = (e, cant, ope) => {
+  const value = parseInt(e.previousElementSibling.textContent);
+  const subtotalProd = e.nextElementSibling;
+  const TOTAL = parseInt(subtotalTotal.innerHTML);
+  subtotalProd.textContent = cant * value;
+  if (ope === "plus") {
+    subtotalTotal.innerHTML = TOTAL + value;
+    calcEnvio();
+  } else if (ope === "minus") {
+    subtotalTotal.innerHTML = TOTAL - value;
+    calcEnvio();
+  }
+};
+//calcula el envio
+const calcEnvio = () => {
+  tipoEnvio.forEach((e) => {
+    if (e.checked) {
+      TOTAL = parseInt(subtotalTotal.innerHTML);
+      totalEnvio.innerHTML = parseInt((e.value / 100) * TOTAL);
+      total.innerHTML = parseInt((e.value / 100) * TOTAL) + TOTAL;
+    }
   });
 };
+tipoEnvio.forEach((e) =>
+  e.addEventListener("click", () => {
+    TOTAL = parseInt(subtotalTotal.innerHTML);
+    totalEnvio.innerHTML = parseInt((e.value / 100) * TOTAL);
+    total.innerHTML = parseInt((e.value / 100) * TOTAL) + TOTAL;
+  })
+);
+//
+const tipoPago = document.querySelectorAll(".radio_input_pay + label");
+tipoPago.forEach((e) =>
+  e.addEventListener("click", () => {
+    tipoPago.forEach((i) => {
+      if (e !== i) {
+        i.previousElementSibling.setAttribute("disabled", "");
+        i.parentElement.style.opacity = ".5";
+        i.parentElement
+          .querySelectorAll(".input_input")
+          .forEach((e) => e.setAttribute("disabled", ""));
+      } else {
+        i.previousElementSibling.removeAttribute("disabled");
+        i.parentElement.style.opacity = "1";
+        i.parentElement
+          .querySelectorAll(".input_input")
+          .forEach((e) => e.removeAttribute("disabled"));
+      }
+    });
+  })
+);
+
 document.addEventListener("DOMContentLoaded", () => {
-  useData();
+  insertHTML();
+
+  document.querySelector('#ingresar').addEventListener('click',()=>{
+    document.querySelector('.data').classList.toggle('data_active')
+  })
+  document.querySelector('.data i').addEventListener('click',()=>{
+    document.querySelector('.data').classList.toggle('data_active')
+  })
+  
 });
 
-// Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
-(function () {
-  "use strict";
+const form = document.querySelector(".form");
+const warnings = document.querySelectorAll(".warnings p");
 
-  // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
-  var forms = document.querySelectorAll(".needs-validation");
+const calle = document.querySelector("#calle");
+const calle_num = document.querySelector("#calle_num");
+const calle_esq = document.querySelector("#calle_esq");
+const creditCard = document.querySelector("#creditCard");
+const tarjeta = document.querySelector("#tarjeta");
+const tarjeta_seguridad = document.querySelector("#tarjeta_seguridad");
+const tarjeta_vencimiento = document.querySelector("#tarjeta_vencimiento");
+const bankTransfer = document.querySelector("#bankTransfer");
+const cuenta = document.querySelector("#cuenta");
 
-  // Bucle sobre ellos y evitar el envío
-  Array.prototype.slice.call(forms).forEach(function (form) {
-    form.addEventListener(
-      "submit",
-      function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
+document.querySelector("#submit").addEventListener("click", (e) => {
+  if (!form.checkValidity()) {
+    document
+      .querySelectorAll(".form .input_input")
+      .forEach((e) => (e.className = "input_input input_input_invalid"));
 
-        form.classList.add("was-validated");
-      },
-      false
+      if (
+        !calle.checkValidity() ||
+        !calle_num.checkValidity() ||
+        !calle_esq.checkValidity()
+      ){warnings[0].innerHTML = `<p>Dirección de envio no valido</p>`;}
+        if (
+          !tarjeta.checkValidity() ||
+          !tarjeta_seguridad.checkValidity() ||
+          !tarjeta_vencimiento.checkValidity() ||
+          !cuenta.checkValidity()
+        ){warnings[1].innerHTML = `<p>Datos de pago no valido</p>`;}
+
+    document.querySelectorAll(".form_address input").forEach((e) =>
+      e.addEventListener("input", () => {
+        if (
+          !calle.checkValidity() ||
+          !calle_num.checkValidity() ||
+          !calle_esq.checkValidity()
+        ){
+          warnings[0].innerHTML = `<p>Dirección de envio no valido</p>`;}
+          else{ warnings[0].innerHTML = ''}
+      })
     );
-  });
-})();
-
-const btnRegistrar = document.getElementById("registrar");
-const pay = document.querySelector(".payForm");
-const inpPay = document.querySelectorAll(".pay");
-const inpLabelPay = document.querySelectorAll(".payLab");
-const cuenta = document.querySelector(".cuenta");
-const vencimiento = document.querySelector(".vencimiento");
-
-const exito =()=> {
-  document.querySelector('form').checkValidity() && (btnRegistrar.setAttribute("data-bs-target","#exito"), setTimeout(()=> location.reload() , 1000))
-}
-
-const payForm = () => {
-  inpPay.forEach(
-    (e, i) =>
-      !e.checked &&
-      ((inpLabelPay[i].style.opacity = ".5"),
-      inpLabelPay[i]
-        .querySelectorAll("input")
-        .forEach((e) => e.setAttribute("disabled", "")))
-  );
-
-  inpPay.forEach(
-    (e, i) =>
-      e.checked &&
-      ((inpLabelPay[i].style.opacity = "1"),
-      inpLabelPay[i]
-        .querySelectorAll("input")
-        .forEach(
-          (e) =>
-            e.getAttribute("disabled") == "" && e.removeAttribute("disabled")
-        ))
-  );
-};
-const validar = () => {
-  cuenta.value != "" || vencimiento.value != ""
-    ? ((pay.style.display = "none"),
-      document.querySelector(".btnPayForm").classList.add("btn-secondary"),
-      document.querySelector(".btnPayForm").classList.remove("btn-danger")
-      )
-    : ((pay.style.display = "inline"),
-    document.querySelector(".btnPayForm").classList.remove("btn-secondary"),
-    document.querySelector(".btnPayForm").classList.add("btn-danger")
+    document.querySelectorAll(".card .input_input").forEach((e) =>
+      e.addEventListener("input", () => {
+        if (
+          !tarjeta.checkValidity() ||
+          !tarjeta_seguridad.checkValidity() ||
+          !tarjeta_vencimiento.checkValidity() ||
+          !cuenta.checkValidity()
+        ){
+          warnings[1].innerHTML = `<p>Datos de pago no valido</p>`;}
+          else{ warnings[1].innerHTML = ''}
+      })
     );
-};
-btnRegistrar.addEventListener("click", () => {
-  validar();
-  exito();
+  }else{
+    document.querySelector('.modal').classList.toggle('modal_active')
+    form.querySelectorAll('.input_input').forEach(e=>e.value='')
+    setTimeout(()=>document.querySelector('.modal').classList.toggle('modal_active'),1000)
+
+    setTimeout(()=>{
+      USER.cart = [USER.cart.pop()]
+      USER.cart.forEach(e=>deleteProd(e)) 
+    },1500)
+  }
 });
-cuenta.addEventListener("input", validar);
-vencimiento.addEventListener("input", validar);
-
-
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+});

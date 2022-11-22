@@ -1,111 +1,126 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" type="image/svg+xml" href="img/logo.png" />
+    <title>eMercado - Todo lo que busques está aquí</title>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>eMercado - Todo lo que busques está aquí</title>
-  
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/5b1611243e.js" crossorigin="anonymous"></script>
-  <!-- autenticaciones -->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="889094166548-9misg0mt41jnra7em2206eu9rp25tvrd.apps.googleusercontent.com">
-  <link href="css/styles.css" rel="stylesheet">
-  <link href="css/login.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: rgb(248, 249, 250);
-    }
-  </style>
-</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link href="scss/styles.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/5b1611243e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<body>
-  <main class="mt-5">
-    <!-- <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div> -->
-
-    <div class="container">
-      <div class="cnt-img">
-        
-      </div>
-      
-      <div class="side">
-        <div class="cntn social">
-            <div class="cntn cnt-social">
-                <p class="txt-1">Accede con</p>
-                <ul class="cntn cntn-links">
-                    <li class="btn btn-social">
-                        <i class="fa-brands fa-facebook"></i>
-                        <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
-                    </li>
-  
-                    <li class="btn btn-social">
-                      <i class="fa-brands fa-google"></i>
-                        <!-- <i class="fa-brands fa-google g-signin2" data-onsuccess="onSignIn"></i> -->
-                    </li>
-  
-                    <li class="btn btn-social">
-                        <i class="fa-brands fa-github"></i>
-                    </li>
-                  </ul>
-            </div>
-  
-            <div class="cntn cnt-or">
-                <p class="txt-1">o</p>
-            </div>
+  <body>
+    <header>
+      <!-- navbar -->
+      <nav class="nav">
+        <a href="home.html" class="nav_btn nav_logo">
+          <i class="fa-solid fa-moon"></i>
+        </a>
+        <div class="nav_center">
+          <a href="categories.html" class="nav_btn btn btn_link">categorias</a>
+          <a class="nav_btn btn btn_link">perfil </a>
         </div>
-        <form action="" class="cntn login">
-                <div class="cntn email">
-                    <label for="email" class="forms-label" id="email_label"></label>
-                    <input placeholder="Email address" type="email" class="forms-control" id="email" aria-describedby="emailHelp">
-                </div>
-                <div class="cntn psswd">
-                    <label for="psswd" class="forms-label" id="psswd_label"></label>
-                    <input placeholder="Password" type="password" class="forms-control" id="psswd">
-                    <span class="icon show-pass"><i class="fa-solid fa-eye btn"></i></span>
-                </div>
-                <div class="cntn checks">
-                    <div class="forms-check">
-                        <input class="forms-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                        <label class="forms-check-label" for="form2Example3">
-                        Recordar datos
-                        </label>
-                    </div>
-                </div>
-                <div  id="btn-lgn" class="login_btn btn btn-primary" >Login</div>
-        </form>
+        <div class="input_check">
+          <input type="checkbox" id="switch" name="theme" />
+          <label for="switch"> Toggle</label>
+        </div>
+      </nav>
+    </header>
+
+    <!-- content -->
+    <main class="login">
+      <div class="login_cnt">
+        <h1 class="tittle">Inicia Sesión</h1>
+
+        <section class="input input_mail_cnt">
+          <input
+            id="mail"
+            type="text"
+            class="input_input"
+            name="email"
+            required
+            min="6"
+          />
+          <label for="email" class="input_label"> Correo </label>
+        </section>
+
+        <section class="input input_psswd_cnt">
+          <input
+            id="psswd"
+            type="password"
+            class="input_input"
+            name="psswd"
+            required
+            min="6"
+          />
+          <label for="psswd" class="input_label"> Contraseña </label>
+          <span class="btn input_psswd"><i class="fa-solid fa-eye"></i></span>
+        </section>
+
+        <section class="btn_fancy_cnt">
+          <a id="ingresar" class="btn btn_fancy" href="#">Ingresar</a>
+        </section>
       </div>
-      <p class="small fw-bold mt-2 pt-1 mb-0">¿Tienes cuenta? <a href="#!"
-        >Resgistrate</a></p>
+    </main>
 
-  </div>
-  </main>
+    <!-- footer -->
+    <footer class="footer">
+      <span>
+        <p>
+          <a class="link" href="#">Volver arriba</a>
+        </p>
+      </span>
+      <span>
+        <p>
+          Este sitio forma parte de
+          <a
+            class="link btn_link"
+            href="https://jovenesaprogramar.edu.uy/"
+            target="_blank"
+            >Jovenes a Programar</a
+          >
+          - 2022
+        </p>
+        <p>
+          Clickea
+          <a class="link btn_link" target="_blank" href="Letra.pdf">aquí</a>
+          para descargar la letra del obligatorio.
+        </p>
+      </span>
+      <span>
+        <p>
+          sitio creado por Rivas Will
+          <a
+            class="btn_link muted"
+            href="http://github.com/rivaswill"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          -
+          <a
+            class="btn_link muted"
+            href="http://"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+        </p>
+      </span>
+    </footer>
 
-
-
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
-        2022</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
-    </div>
-  </footer>
-
-  <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
-    <p>Por favor rellene los campos</p>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-
-  <script src="js/login.js"></script>
-  <script src="js/init.js"></script>
-</body>
-
+    <script src="js/login.js"></script>
+    <script src="js/init.js"></script>
+  </body>
 </html>

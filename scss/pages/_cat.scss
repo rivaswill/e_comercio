@@ -1,0 +1,36 @@
+.cat,.prod {
+  &_head {
+    padding-bottom: 3rem;
+    p {
+      text-align: center;
+    }
+  }
+  &_cnt {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    &_minmax {
+      display: flex;
+    }
+    &_sort {
+      display: flex;
+      input {
+        position: absolute;
+        transform: scale(0);
+      }
+    }
+  }
+  .cat_list {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-auto-rows: 15rem;
+  }
+  .prod_list {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+    grid-auto-rows: 30rem;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 25rem), 1fr));
+    justify-content: center
+  }
+}

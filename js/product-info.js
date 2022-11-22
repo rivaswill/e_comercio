@@ -1,304 +1,182 @@
-const cnt = document.querySelector('#cnt');
+const cnt = document.querySelector("#cnt");
 
-const getData =async(dt)=>{
-    let response = await fetch(dt);
-    let data = await response.json();
-    return data;
-};
-const getLocalData =()=>{
-    let res = { };
+let USER = JSON.parse(localStorage.user);
+const PRODUCTS_info = PRODUCT_INFO_URL + USER.prodID + EXT_TYPE;
+const PRODUCTS_coments = PRODUCT_INFO_COMMENTS_URL + USER.prodID + EXT_TYPE;
 
-    let data = JSON.parse(localStorage.productsInfo);
-
-    data.proID.forEach(e=>{
-        res[e] = res[e] + 1 || 1
-    })
-    data = {
-      proID: [JSON.parse(localStorage.productsInfo).proID.pop()],
-      cant:[JSON.parse(localStorage.productsInfo).cant.pop()]
-    }
-    return data;
-}
-
-
-
-let Sell;
-const sell_btn = (productID) => {
-  if (Sell == undefined) {
-    if (localStorage.productsSell == undefined) {
-      Sell = {
-        proID: [],
-        cant: [],
-      };
-    } else {
-      Sell = JSON.parse(localStorage.productsSell);
-    }
-  }
-
-  if (Sell.proID.some((e) => e == productID)) {
-    Sell.cant[Sell.proID.indexOf(productID)]++;
-  } else {
-    Sell.proID.push(productID);
-    Sell.cant.push(1);
-  }
-  localStorage.setItem("productsSell", JSON.stringify(Sell));
-};
-
-
-let pI
-const productsInfo = (productID) =>{
-    
-    pI = JSON.parse(localStorage.productsInfo )
-
-    if (pI.proID.some(e=>e== productID)) {
-        pI.cant[pI.proID.indexOf(productID)]++
-    }else{
-        pI.proID.push(productID);
-        pI.cant.push(1);
-    }
-    localStorage.setItem("productsInfo", JSON.stringify (pI));
-    location.reload();
-}
-const insertHTML =(pi,pc,index)=>{
-    
-    let images = '';
-    pi.images.forEach(e => {
-        images +=`
-            <div class="col h-25"><img class="img-fluid" src="${e}" alt="" srcset=""></div>
-        `
-    });
-
-    let commets ='';
-    pc.forEach(e=>{
-        let star='';
-        for (let i = 0; i < e.score; i++) {
-            star +=`
-            <i class="bi bi-star-fill orange"></i>
-            `
-        }
-        if (e.score<5) {
-            for (let i = 0; i < 5-e.score; i++) {
-                star +=`
-                <i class="bi bi-star-fill gray"></i>
-                `
-            }
-        }
-        
-        commets +=`
-        <div class="d-flex flex-start mb-4">
-            <img class="rounded-circle shadow-1-strong me-3"
-              src="https://dummyimage.com/100" alt="avatar" width="65"
-              height="65" />
-            <div class="card w-100">
-              <div class="card-body p-4">
-                <div class="">
-                  <h5>${e.user}</h5>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="small">${e.dateTime}</p>
-                    <div>${star}</div>
-                  </div>
-                  <p>
-                    ${e.description}
-                  </p>
+const modalInOut=()=>{
+  document.querySelector('.modal').classList.toggle('modal_active')
   
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span></span>
-                    <a href="#!" class="link-muted"><i class="fas fa-reply me-1"></i> Reply</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `
-    })
+  setTimeout(()=>{
+    document.querySelector('.modal').classList.toggle('modal_active')
+  },1000)
+}
 
-    let imgRel='';
-    let btnRel='';
-    let prdRel='';
-    pi.relatedProducts.forEach((e,i) => {
-        if (i==0) {
-            imgRel += `
-            <div class="carousel-item active btn" onclick="productsInfo(${e.id})">
-                <img src="${e.image}" class="d-block w-100" alt="...">
-                <p>${e.name}</p>
-            </div>
-            `
-            btnRel += `
-            <button type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i+1}"></button>
-            `
-        }else{
-            imgRel += `
-            <div class="carousel-item btn" onclick="productsInfo(${e.id})">
-                <img src="${e.image}" class="d-block w-100" alt="...">
-                <p>${e.name}</p>
-            </div>
-            `
-            btnRel += `
-            <button type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide-to="${i}" aria-label="Slide ${i+1}"></button>
-            `
-        }
-    });
-    prdRel=`
-    <div id="carouselExampleIndicators${pi.id}" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      ${btnRel}
+const getCartIDs = (idProd) => {
+  if (USER.cart===undefined) USER.cart = [];
+  if(USER.cart.indexOf(idProd)===-1) USER.cart.push(idProd);
+  localStorage.user = JSON.stringify(USER)
+  modalInOut()
+};
+const getProdID = (id) => {
+  USER.prodID = id;
+  localStorage.user = JSON.stringify(USER);
+  window.location = "product-info.html";
+};
+
+const createHTM = (data, coments) => {
+  // data
+  // category: "Autos"  cost: 13500  currency: "USD"
+  // description: "Generación 2019, variedad de colores. Motor 1.0, ideal para ciudad."
+  // id: 50921  name: "Chevrolet Onix Joy"  soldCount: 14
+  // images: Array(4) [ "img/prod50921_1.jpg", "img/prod50921_2.jpg", "img/prod50921_3.jpg", … ]
+  // relatedProducts: Array [ {…}, {…} ] -> 0: Object { id: 50924, name: "Peugeot 208", image: "img/prod50924_1.jpg" }
+
+  //  commets
+  // dateTime: "2020-02-25 18:03:52"  description: "Ya llevo un año con este auto y la verdad que tiene sus ventajas y desventajas"
+  // product: 50921  score: 3  user: "juan_pedro"
+  let imgProd = ''
+  data.images.forEach(e=>{
+    imgProd += `
+    <div class="card_cnt_img">
+      <img
+        class="card_img card_prodInf_img"
+        src=${e}
+        alt="Imagen representativa del producto ${data.name}"
+      />
     </div>
-    <div class="carousel-inner">
-      ${imgRel}
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators${pi.id}" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
     `
-    
-    const cant = getLocalData().cant;
-    let html=`
-    <div class="product card mt-4  p${pi.id}">
-    <div class="card-body">
-            <div class="text p-4 row">
-                <div class="col"><h2>${pi.name}</h2></div>
-                <div class="col-2 d-inline">
-                    <h3 class="text-muted small">categoria:</h3>
-                    <p class="h3">${pi.category}</p>
-                    <button onclick='sell_btn(${pi.id})' type="button" class="btn btn-success">comprar</button>
-                </div>
+  })
+  let relatedProducts = ''
+  data.relatedProducts.forEach(e=>{
+    relatedProducts+=`
+      <img
+      onclick="getProdID(${e.id})"
+      class="card_img card_prodInf_img"
+      src="${e.image}"
+      alt="Imagen representativa del producto ${data.name}"
+    />
+    `
+  })
+  let comentarios = ''
+  coments.forEach(e=>{
+    comentarios+=makeComment(e.score,e.description,e.user)
+  })
+
+  let HTML=`
+      <h1 class="tittle">${data.name}</h1>
+      <div class="card">
+        <div class="card_prodInf_cnt_img">
+          ${imgProd}
+        </div>
+        <section class="btn_fancy_cnt">
+          <a id="add" class="btn btn_fancy" onclick='getCartIDs(${data.id})'>añadir al carrito</a>
+        </section>
+      </div>
+      <div class="card">
+        <div class="desc">
+          <p>cantidad de vendido: ${data.soldCount}</p>
+          <p>costo: ${data.cost + ' ' + data.currency}</p>
+          <p>
+            ${data.description}
+          </p>
+        </div>
+        <h2 class="subtittle">productos relacionados</h2>
+        <figure class="card_prodInf_cnt_img">
+          ${relatedProducts}
+        </figure>
+      </div>
+      <div class="card">
+        <div class="img_profile">
+          <img src="img/img_perfil.png" alt="" srcset="" />
+        </div>
+        <div class="cnt">
+          <span>${USER.mail}</span>
+          <div class="cnt_star">
+            <i class="fa-solid fa-star star" value="5"></i>
+            <i class="fa-solid fa-star star" value="4"></i>
+            <i class="fa-solid fa-star star" value="3"></i>
+            <i class="fa-solid fa-star star" value="2"></i>
+            <i class="fa-solid fa-star star" value="1"></i>
+          </div>
+        </div>
+        <section class="input input_mail_cnt">
+          <textarea
+            class="input_input"
+            name="comment"
+            id="comment"
+            rows="1"
+            required
+          ></textarea>
+          <label for="comment" class="input_label">
+            Ingrese tu comentario
+          </label>
+        </section>
+        <section class="btn_fancy_cnt">
+          <a id="post" class="btn btn_fancy" href="#">Comentar</a>
+        </section>
+        <div class="posts">
+          ${comentarios}
+        </div>
+      </div>
+  `
+  return HTML;
+};
+
+const makeComment=(star,comment,user)=>{
+  let calificacion = '';
+  for (let i = 1; i <= 5; i++) {
+    if (5-star >= i)
+    calificacion+=`<i class="fa-solid fa-star"></i>`
+    else
+    calificacion+=`<i class="fa-solid fa-star orange"></i>`
+  }
+  let HTML = `
+  <div class="input_input user_post">
+            <p>${user}</p>
+            <div class="cnt_star">
+              ${calificacion}
             </div>
-            <hr class="my-4">
-            
-            <div class="row">
-                <div class="col">
-                    <h3>Descripción:</h3>
-                    <p>${pi.description}</p>
-                    <p> <span class="text-muted small">Cantidad:</span> ${cant[index]}</p>
-                    <span class="inline-block"> <h3 class="text-muted small">Precio:</h3>
-                    <p class="h3">${pi.currency}${pi.cost}</p> </span>
-                </div>
-                <div class="col-3 ">
-                <h3 class="text-muted small">Productos Relacionados:</h3>
-                    ${prdRel}
-                </div>
-            </div>
-
-            <h3>imagenes</h3>
-            <div class="row mb-3">
-                ${images}
-            </div>
-
-            
-            <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions${pi.id}" aria-controls="offcanvasWithBothOptions">ver comentarios..</button>
-
-                <div onclick="comentar(this)" class="offcanvas offcanvas-start w-50" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions${pi.id}" aria-labelledby="offcanvasWithBothOptionsLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">${pi.name}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                
-                <div>
-                ${commets}
-                </div>
-
-                <div class="d-flex flex-start">
-                    <img class="rounded-circle shadow-1-strong me-3"
-                    src="https://dummyimage.com/100" alt="avatar" width="65"
-                    height="65" />
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                        <div class="">
-                            <h5>Add a comment</h5>
-                            <div class="form-outline">
-                            <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
-                            <label class="form-label" for="textAreaExample">¿Cúal es tu punto de vista?</label>
-                            </div>
-                            <div class="d-flex justify-content-between mt-3">
-                            <span></span>
-                            <a type="button" class="btn link-muted">
-                                Send <i class="fas fa-long-arrow-alt-right ms-1"></i>
-                            </a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-
-                    </div>
-                </div>
-
-
-
-            
-
-    </div>
-    </div>
-          `  
-          
-    cnt.innerHTML+= html
-   
+            <p>
+              ${comment}
+            </p>
+          </div>
+  `
+  return HTML
 }
 
-const comentar=(e)=>{
-    const text = e.querySelector('textarea');
-    const cnt = e.querySelector('div+div>div');
-    let commets = '';
-    e.querySelector('.form-outline + div > .btn').addEventListener('click',()=>{
-        if (text.value!='') {
-            commets +=`
-            <div class="d-flex flex-start mb-4">
-                <img class="rounded-circle shadow-1-strong me-3"
-                  src="https://dummyimage.com/100" alt="avatar" width="65"
-                  height="65" />
-                <div class="card w-100">
-                  <div class="card-body p-4">
-                    <div class="">
-                      <h5>${localStorage.mail}</h5>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <p class="small">${new Date().toLocaleString('lt-LT')}</p>
-                        <div>
-                            <i class="bi bi-star-fill gray"></i>
-                            <i class="bi bi-star-fill gray"></i>
-                            <i class="bi bi-star-fill gray"></i>
-                            <i class="bi bi-star-fill gray"></i>
-                            <i class="bi bi-star-fill gray"></i>
-                        </div>
-                      </div>
-                      <p>
-                        ${text.value}
-                      </p>
-      
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span></span>
-                        <a href="#!" class="link-muted"><i class="fas fa-reply me-1"></i> Reply</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `
-            text.value='';
-
-            cnt.innerHTML+=commets
-        }
-    })
-}
-
-const useData =()=>{
-    cnt.innerHTML='';
-    let {proID,}=getLocalData()
-    proID.forEach(async(e,i)=> {
-        const PRODUCTS_info = PRODUCT_INFO_URL + e + EXT_TYPE; 
-        const p_i = await getData(PRODUCTS_info);
-        const PRODUCTS_coments = PRODUCT_INFO_COMMENTS_URL + e + EXT_TYPE; 
-        const p_c = await getData(PRODUCTS_coments);
-        insertHTML(p_i,p_c,i)
-        });
-}
-document.addEventListener('DOMContentLoaded', ()=>{
-           useData() 
-})
-
+document.addEventListener("DOMContentLoaded", async () => {
+  let data = await getJSONData(PRODUCTS_info);
+  let come = await getJSONData(PRODUCTS_coments);
+  cnt.innerHTML = createHTM(data,come)
+  
+  
+const commet = document.querySelector('#comment')
+const commetBox= document.querySelector('.posts');
+const btnPost = document.querySelector('#post')
+const btnCart = document.querySelector('#add')
+  //sistema de puntuación
+  let star;
+  const listStar = document.querySelectorAll(".star");
+  listStar.forEach((e) => {
+    e.addEventListener("click", () => {
+      star = e.getAttribute("value");
+      for (let i = 1; i <= listStar.length; i++) {
+        if (i <= star)
+          document.querySelector(`.star[value="${i}"]`).className =
+            "fa-solid fa-star star orange";
+        else
+          document.querySelector(`.star[value="${i}"]`).className =
+            "fa-solid fa-star star";
+      }
+    });
+  });
+  
+  btnPost.addEventListener('click',()=>{
+    let HTML= makeComment(star,commet.value,USER.mail)
+    commetBox.innerHTML += HTML
+    commet.value = '';
+    star=0;
+    listStar.forEach(e=>e.className ="fa-solid fa-star star")
+  })
+});

@@ -1,0 +1,22 @@
+:root {
+  --bg-color:    #f8f9fa;
+  --bg-color-alt:#dadbdb;
+  --muted:       #646464;
+  --link:        #296660;
+  --text:        #292d30;
+  --pink:        #e83e8c;
+  --orange:      #f09103;
+  --success:     #48bc86;
+  --danger:      #dc3545;
+  &[dataTheme="dark"] {
+    --bg-color:    #25293d;
+    --bg-color-alt:#3a4058;
+    --muted:       #54677a;
+    --link:        #57ccc1;
+    --text:        #f8f9fa;
+    --pink:        #e83e8c;
+    --orange:      #f09103;
+    --success:     #198754;
+    --danger:      #dc3545;
+  }
+}

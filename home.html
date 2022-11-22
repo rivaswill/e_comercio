@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" type="image/svg+xml" href="img/logo.png" />
+    <title>eMercado - Todo lo que busques está aquí</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link href="scss/styles.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/5b1611243e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <header>
+      <!-- navbar -->
+      <nav class="nav">
+        <a href="home.html" class="nav_btn nav_logo">
+          <i class="fa-solid fa-moon"></i>
+        </a>
+        <div class="nav_center">
+          <a href="categories.html" class="nav_btn btn btn_link">categorias</a>
+          <a href="my-profile.html" class="nav_btn btn btn_link">perfil</a>
+        </div>
+        <div class="input_check">
+          <input type="checkbox" id="switch" name="theme" />
+          <label for="switch"> Toggle</label>
+        </div>
+      </nav>
+    </header>
+
+    <!-- content -->
+    <main class="home">
+      <div class="jumbotron home_jumbotron">
+        <div class="home_jumbotron_cnt">
+          <div class="JAP home_jumbotron_JAP">
+            <span class="JAP_J JAP_letter">J</span>
+            <span class="JAP_A JAP_letter">a</span>
+            <span class="JAP_P JAP_letter">P</span>
+          </div>
+          <p class="home_jumbotron_tittle tittle">e . mercado</p>
+          <p class="home_jumbotron_subtittle subtittle">tu e_comerce favorito!</p>
+          <p class="muted home_jumbotron_text">Este sitio es una herramienta generada con fines estrictamente educativos. No realiza compras o ventas reales a terceros. Tampoco administra datos personales o de clientes. Todo lo expresado en este dominio no tiene validez comercial</p>
+        </div>
+      </div>
+      <div class="home_cnt">
+        <div class="card card_home card_btn" id="Autos">
+          <div class="card_cnt_img card_home_cnt_img">
+            <img
+              class="card_img card_home_img"
+              src="img/cars_index.jpg"
+              alt="Imgagen representativa de la categoría 'Autos'"
+            />
+          </div>
+          <div class="card_body card_home_body">
+            <h3 class="subtittle">Autos</h3>
+            <p>
+              Los mejores precios en autos 0 kilómetro, de alta y media gama.
+            </p>
+          </div>
+        </div>
+
+        <div class="card card_btn card_home" id="Juguetes">
+          <div class="card_cnt_img card_home_cnt_img">
+            <img
+              class="card_img card_home_img"
+              src="img/toys_index.jpg"
+              alt="Imgagen representativa de la categoría 'Juguetes'"
+            />
+          </div>
+          <div class="card_body card_home_body">
+            <h3 class="subtittle">Juguetes</h3>
+            <p>
+              Encuentra aquí los mejores precios para niños/as de cualquier
+              edad.
+            </p>
+          </div>
+        </div>
+
+        <div class="card card_home card_btn" id="Muebles">
+          <div class="card_cnt_img card_home_cnt_img">
+            <img
+              class="card_img card_home_img"
+              src="img/furniture_index.jpg"
+              alt="Imgagen representativa de la categoría 'Muebles'"
+            />
+          </div>
+          <div class="card_body card_home_body">
+            <h3 class="subtittle">Muebles</h3>
+            <p>Muebles antiguos, nuevos y para ser armados por uno mismo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="home_more">
+        <a class="link home_more" href="categories.html">Y mucho más!</a>
+      </div>
+    </main>
+    <!-- footer -->
+    <footer class="footer">
+      <span>
+        <p>
+          <a class="link" href="#">Volver arriba</a>
+        </p>
+      </span>
+      <span>
+        <p>
+          Este sitio forma parte de
+          <a
+            class="link btn_link"
+            href="https://jovenesaprogramar.edu.uy/"
+            target="_blank"
+            >Jovenes a Programar</a
+          >
+          - 2022
+        </p>
+        <p>
+          Clickea
+          <a class="link btn_link" target="_blank" href="Letra.pdf">aquí</a>
+          para descargar la letra del obligatorio.
+        </p>
+      </span>
+      <span>
+        <p>
+          sitio creado por Rivas Will
+          <a
+            class="btn_link muted"
+            href="http://github.com/rivaswill"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          -
+          <a
+            class="btn_link muted"
+            href="http://"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+        </p>
+      </span>
+    </footer>
+    <script src="js/init.js"></script>
+    <script src="js/home.js"></script>
+  </body>
+</html>

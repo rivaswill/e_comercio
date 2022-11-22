@@ -1,0 +1,127 @@
+.card {
+  --main-color: var(--bg-color-alt);
+  cursor: pointer;
+  display: grid;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  &_btn{
+    &:hover {
+      transform: scale(1.05);
+    }
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+  &_cnt_img {
+    overflow: hidden;
+    height: 100%;
+  }
+  &_img {
+    height: 100%;
+  }
+  &_body {
+    padding: 1rem 2rem;
+    background-color: var(--main-color);
+    p {
+      text-align: justify;
+    }
+  }
+  &_title {
+    padding: 1rem 2rem 0;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  &_home {
+    &_body {
+      position: relative;
+      &::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          transparent 10%,
+          var(--main-color) 100%
+        );
+        position: absolute;
+        top: -100%;
+        left: 0;
+      }
+    }
+  }
+
+  &_cat {
+    grid-template-columns: 15rem 1fr;
+    margin-top: 2rem;
+    &_body {
+        display: grid;
+        grid-template-columns: 1fr 6rem;
+      position: relative;
+      &::before {
+        content: "";
+        width: 15rem;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent 50%,
+          var(--main-color) 100%
+        );
+        position: absolute;
+        top: 0;
+        left: -15rem;
+      }
+    }
+  }
+  &_prod {
+    &_body {
+      position: relative;
+      height: 10rem;
+      display: grid;
+      grid-template-columns: 1fr 7rem;
+      h3{
+        position: absolute;
+        top: -2.5rem;
+        left: 2rem;
+      }
+      p:nth-last-child(1){
+        grid-column: span 2;
+      }
+      &::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          transparent 10%,
+          var(--main-color) 100%
+        );
+        position: absolute;
+        top: -100%;
+        left: 0;
+      }
+    }
+  }
+}
+
+.modal{
+  position: absolute;
+  width: 50vw;
+  height: 6rem;
+  background-color: var(--bg-color);
+  border: .25rem solid var(--success);
+  border-radius: 1rem;
+  left: 25vw;
+  top: -10rem;
+  transition: top .2s ease;
+  padding: 1.70rem;
+  &_active{
+    top: 5rem;
+  }
+  p{
+    font-size: 2rem;
+    text-align: center
+  };
+}

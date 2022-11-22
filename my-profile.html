@@ -1,75 +1,232 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" type="image/svg+xml" href="img/logo.png" />
+    <title>eMercado - Todo lo que busques está aquí</title>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>eMercado - Todo lo que busques está aquí</title>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link href="scss/styles.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/5b1611243e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-</head>
+  <body>
+    <header>
+      <!-- navbar -->
+      <nav class="nav">
+        <a href="home.html" class="nav_btn nav_logo">
+          <i class="fa-solid fa-moon"></i>
+        </a>
+        <div class="nav_center">
+          <a href="categories.html" class="nav_btn btn btn_link">categorias</a>
+          <a href="my-profile.html" class="nav_btn btn btn_link">perfil</a>
+        </div>
+        <div class="input_check">
+          <input type="checkbox" id="switch" name="theme" />
+          <label for="switch"> Toggle</label>
+        </div>
+      </nav>
+    </header>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="categories.html">Categorías</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="sell.html">Vender</a>
-          </li>
-          <li class="nav-item">
-          </li>
-        </ul>
+    <!-- content -->
+    <main class="perfil">
+      <div class="img_perfil">
+        <img src="img/img_perfil.png" alt="" srcset="" class="img" />
+        <label for="file">Cambiar foto</label>
       </div>
-    </div>
-  </nav>
-  <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
-  </main>
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
-        2022</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
-    </div>
-  </footer>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/my-profile.js"></script>
-</body>
+      <div class="card">
+        <div class="card_body">
+          <h1 class="tittle names">Wilson Rivas</h1>
+          <span class="aboutMe"
+            > <span class="muted">Cuentanos sobre tus gustos para poder recomenarte mejores productos.</span></span
+          >
+          <span class="correo"
+            ><i class="fa-solid fa-envelope"></i>
+            <span></span></span
+          >
+          <span class="facebook"
+            ><i class="fa-brands fa-facebook"></i> <span><span class="muted">@user</span></span
+          ></span>
+          <span class="telefono"
+            ><i class="fa-solid fa-phone"></i> <span> <span class="muted">+598 XXX XX XX</span></span></span
+          >
+          <span class="twitter"
+            ><i class="fa-brands fa-twitter"></i> <span><span class="muted">@user</span></span
+          ></span>
+          <section class="btn_fancy_cnt">
+            <a id="modificar" class="btn btn_fancy" href="#">Modificar</a>
+          </section>
+        </div>
 
+
+      </div>
+
+      <div class="card">
+        <div class="card_body">
+          <i class="fa-solid fa-x"></i>
+          <input type="file" name="" id="file" />
+          <div class="names">
+            <section class="input nombre">
+              <input
+                id="nombre"
+                type="text"
+                class="input_input"
+                name="nombre"
+                required
+              />
+              <label for="nombre" class="input_label"> <small>primer</small> Nombre</label>
+            </section>
+            <section class="input nombre2do">
+              <input
+                id="nombre2do"
+                type="text"
+                class="input_input"
+                name="nombre2do"
+                required
+              />
+              <label for="nombre2do" class="input_label"> <small>segundo</small> Nombre</label>
+            </section>
+            <section class="input apellido">
+              <input
+                id="apellido"
+                type="text"
+                class="input_input"
+                name="apellido"
+                required
+              />
+              <label for="apellido" class="input_label"> <small>primer</small> Apellido</label>
+            </section>
+            <section class="input apellido2do">
+              <input
+                id="apellido2do"
+                type="text"
+                class="input_input"
+                name="apellido2do"
+                required
+              />
+              <label for="apellido2do" class="input_label"> <small>segundo</small> Apellido</label>
+            </section>
+          </div>
+          <section class="input aboutMe">
+            <input
+              id="aboutMe"
+              type="text"
+              class="input_input"
+              name="aboutMe"
+              required
+            />
+            <label for="aboutMe" class="input_label"
+              >Háblanos un poco sobre tus intereses</label
+            >
+          </section>
+          <section class="input correo">
+            <input
+              id="correo"
+              type="text"
+              class="input_input"
+              name="correo"
+              required
+            />
+            <label for="correo" class="input_label"> Ingresa tu Correo</label>
+          </section>
+          <section class="input facebook">
+            <input
+              id="facebook"
+              type="text"
+              class="input_input"
+              name="facebook"
+              required
+            />
+            <label for="facebook" class="input_label">
+              Indicanos tu Facebook
+            </label>
+          </section>
+          <section class="input telefono">
+            <input
+              id="telefono"
+              type="text"
+              class="input_input"
+              name="telefono"
+              required
+            />
+            <label for="telefono" class="input_label">
+              Indicanos tu Telefono
+            </label>
+          </section>
+          <section class="input twitter">
+            <input
+              id="twitter"
+              type="text"
+              class="input_input"
+              name="twitter"
+              required
+            />
+            <label for="twitter" class="input_label">
+              Indicanos tu Twitter
+            </label>
+          </section>
+          <section class="btn_fancy_cnt">
+            <a id="guardar" class="btn btn_fancy" href="#">Guardar</a>
+          </section>
+        </div>
+      </div>
+    </main>
+    <!-- footer -->
+    <footer class="footer">
+      <span>
+        <p>
+          <a class="link" href="#">Volver arriba</a>
+        </p>
+      </span>
+      <span>
+        <p>
+          Este sitio forma parte de
+          <a
+            class="link btn_link"
+            href="https://jovenesaprogramar.edu.uy/"
+            target="_blank"
+            >Jovenes a Programar</a
+          >
+          - 2022
+        </p>
+        <p>
+          Clickea
+          <a class="link btn_link" target="_blank" href="Letra.pdf">aquí</a>
+          para descargar la letra del obligatorio.
+        </p>
+      </span>
+      <span>
+        <p>
+          sitio creado por Rivas Will
+          <a
+            class="btn_link muted"
+            href="http://github.com/rivaswill"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          -
+          <a
+            class="btn_link muted"
+            href="http://"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+        </p>
+      </span>
+    </footer>
+    <script src="js/init.js"></script>
+    <script src="js/my-profile.js"></script>
+  </body>
 </html>

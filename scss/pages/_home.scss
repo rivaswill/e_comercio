@@ -1,0 +1,62 @@
+.home {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-rows: calc(100vh - 3rem) 1fr 3rem;
+
+  &_jumbotron {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+    grid-template-rows: 6rem 1fr 6rem;
+    &_cnt{
+        grid-row: 2;
+        display: grid;
+        grid-template-rows: 4rem 4rem 2rem 1fr;
+    }
+    &_tittle {
+      text-align: start;
+      font-size: 4rem;
+      padding-left: 3rem;
+      position: relative;
+      &::after {
+        content: "e . mercado";
+        position: absolute;
+        color: var(--link);
+        left: 0rem;
+        padding-left: 3rem;
+        opacity: 0.6;
+      }
+    }
+    &_subtittle {
+      text-align: start;
+      padding-left: 3rem;
+      position: relative;
+      &::after {
+        content: "tu e_comerce favorito!";
+        position: absolute;
+        color: var(--link);
+        left: 0rem;
+        padding-left: 3rem;
+        opacity: 0.6;
+      }
+    }
+    &_text {
+      padding-top: 6rem;
+      font-size: 1.25rem;
+      grid-row: 5;
+    }
+  }
+
+  &_cnt {
+    display: grid;
+    gap: 1rem;
+    grid-auto-rows: 30rem;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 25rem), 1fr));
+    justify-content: center;
+  }
+  &_more {
+    justify-self: center;
+    align-self: center;
+  }
+}
